@@ -1,6 +1,7 @@
 package edu.itu.course.dropwizard.jdbi.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
@@ -26,8 +27,8 @@ public interface DeviceDataDAO {
     @SqlQuery("select * from " + DEVICE_DATA_TABLE + " where id = :id")
     DeviceData getDeviceDataById(@Bind("id") int id);
     
-    @SqlQuery("select * from " + DEVICE_DATA_TABLE + " where id = :id")
-    ArrayList<DeviceData> getDeviceDataByDeviceId(@Bind("id") int id);
+    @SqlQuery("select * from " + DEVICE_DATA_TABLE + " where device_id = :id")
+    List<DeviceData> getDeviceDataByDeviceId(@Bind("id") int id);
     
 
     @SqlUpdate("delete from " + DEVICE_DATA_TABLE + " where id = :it")

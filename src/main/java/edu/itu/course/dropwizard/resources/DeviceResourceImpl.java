@@ -40,7 +40,11 @@ public class DeviceResourceImpl implements DeviceResource {
 	public Device getDeviceDataById(int deviceId) {
 		// TODO Auto-generated method stub
 		Device getDevice = this.deviceDAO.findDeviceById(deviceId);
-		getDevice.setDeviceDatas(this.deviceDataDAO.getDeviceDataByDeviceId(deviceId));
+		
+		System.out.println(this.deviceDataDAO.getDeviceDataByDeviceId(deviceId));
+		
+//		getDevice.setDeviceDatas(this.deviceDataDAO.getDeviceDataByDeviceId(deviceId));
+		System.out.println(getDevice);
 		return getDevice;
 	}
 }

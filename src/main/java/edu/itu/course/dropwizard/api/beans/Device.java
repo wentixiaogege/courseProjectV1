@@ -1,19 +1,20 @@
 package edu.itu.course.dropwizard.api.beans;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Device {
 	private int id;
     private String name;
     private int status;
     private String dataType;
-	private ArrayList<DeviceData> deviceDatas;
+	private List<DeviceData> deviceDatas;
     
 
 	/**
 	 * @param deviceDatas the deviceDatas to set
 	 */
-	public void setDeviceDatas(ArrayList<DeviceData> deviceDatas) {
+	public void setDeviceDatas(List<DeviceData> deviceDatas) {
 		this.deviceDatas = deviceDatas;
 	}
 
@@ -49,7 +50,7 @@ public class Device {
 		return dataType;
 	}
 
-	public ArrayList<DeviceData> getDeviceDatas() {
+	public List<DeviceData> getDeviceDatas() {
 			return deviceDatas;
 		}
 

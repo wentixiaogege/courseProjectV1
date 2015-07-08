@@ -11,7 +11,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.eclipse.jetty.server.Authentication.User;
 import org.junit.ClassRule;
 
 import edu.itu.course.dropwizard.MyApplication;
@@ -76,6 +75,21 @@ public class TestDevice {
         assertEquals(sampleDevice.getStatus(), device.getStatus());
         assertEquals(sampleDevice.getDataType(), device.getDataType());
 
+        System.out.println(device);
+        
+        response =
+       		 client.target(String.format("http://localhost:%d/devices/%s/temp/", localPort,"1"))
+       		 .request()
+                .accept(MediaType.APPLICATION_JSON).get();
+        
+        
+     // first check the server response code
+        assertThat(response.getStatus(), is(Response.Status.OK.getStatusCode()));
+        
+        
+        final Device devicewithData = response.readEntity(Device.class);
+        System.out.println("devicewithData is :\n" + devicewithData);
+        
         // now lets delete the user.
         response =
         		client.target(String.format("http://localhost:%d/devices/%s", localPort, sampleDevice.getId()))
