@@ -120,7 +120,7 @@ public class TestDevice {
 
         
         response =
-       		 client.target(String.format("http://localhost:%d/devices/%s/temp/", localPort,"1"))
+       		 client.target(String.format("http://localhost:%d/devices/%s/all/temp/", localPort,"1"))
        		 .request()
                 .accept(MediaType.APPLICATION_JSON).get();
         

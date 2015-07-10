@@ -13,7 +13,7 @@ public class DeviceData {
     private float data;
     private Date timestamp;
     
-	public DeviceData(int id, int deviceId, float data, Timestamp timestamp) {
+	public DeviceData(int id, int deviceId, float data, Date timestamp) {
 		super();
 		this.id = id;
 		this.deviceId = deviceId;
