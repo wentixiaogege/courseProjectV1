@@ -3,19 +3,28 @@ package edu.itu.course.CourseProjectV1;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+
+import java.util.List;
+
 import io.dropwizard.testing.junit.DropwizardAppRule;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.junit.ClassRule;
+
+import com.fasterxml.jackson.jaxrs.annotation.JacksonFeatures;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 import edu.itu.course.dropwizard.MyApplication;
 import edu.itu.course.dropwizard.MyApplicationConfiguration;
 import edu.itu.course.dropwizard.api.beans.Device;
+import edu.itu.course.dropwizard.api.beans.DeviceData;
 
 public class TestDevice {
 	Client client;
@@ -26,7 +35,14 @@ public class TestDevice {
 
     @org.junit.Before
     public void setUp() throws Exception {
-    	client = ClientBuilder.newClient();
+//    	ClientConfig clientConfig = new ClientConfig();
+//    	clientConfig.register(JacksonJsonProvider.class);
+//    	clientConfig.register(JacksonFeature.class);
+//    	client = ClientBuilder.newClient(clientConfig);
+    	
+    	client = ClientBuilder.newBuilder()
+                .register(JacksonFeatures.class)
+                .build();
 
     }
 
@@ -77,18 +93,6 @@ public class TestDevice {
 
         System.out.println(device);
         
-        response =
-       		 client.target(String.format("http://localhost:%d/devices/%s/temp/", localPort,"1"))
-       		 .request()
-                .accept(MediaType.APPLICATION_JSON).get();
-        
-        
-     // first check the server response code
-        assertThat(response.getStatus(), is(Response.Status.OK.getStatusCode()));
-        
-        
-        final Device devicewithData = response.readEntity(Device.class);
-        System.out.println("devicewithData is :\n" + devicewithData);
         
         // now lets delete the user.
         response =
@@ -114,5 +118,20 @@ public class TestDevice {
         // we shouldn't have gotten anything
         assertThat(response.getStatus(), is(Response.Status.NO_CONTENT.getStatusCode()));
 
+        
+        response =
+       		 client.target(String.format("http://localhost:%d/devices/%s/temp/", localPort,"1"))
+       		 .request()
+                .accept(MediaType.APPLICATION_JSON).get();
+        
+        
+     // first check the server response code
+        assertThat(response.getStatus(), is(Response.Status.OK.getStatusCode()));
+        
+        /*GenericType<List<DeviceData>> type = new GenericType<List<DeviceData>>() {
+		};*/
+        final List<DeviceData> devicewithData = response.readEntity(List.class);//.readEntity(Device.class);
+        System.out.println("devicewithData is :\n" + devicewithData);
+       
     }
 }

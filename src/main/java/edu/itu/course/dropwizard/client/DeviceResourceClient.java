@@ -1,14 +1,16 @@
 package edu.itu.course.dropwizard.client;
 
+import java.util.List;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
 import edu.itu.course.dropwizard.api.DeviceResource;
 import edu.itu.course.dropwizard.api.beans.Device;
+import edu.itu.course.dropwizard.api.beans.DeviceData;
 
 public class DeviceResourceClient implements DeviceResource{
 
@@ -50,7 +52,7 @@ public class DeviceResourceClient implements DeviceResource{
     	.delete();
 	}
 
-	public Device getDeviceDataById(int deviceId) {
+	public Response getDeviceDataById(int deviceId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

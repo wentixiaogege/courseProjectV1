@@ -14,13 +14,19 @@ Usage
 To start the server,
 
 - create the distributable by running "mvn clean install"
-- move to target folder and run "java -jar dropwizard-jdbi-template-1.0-SNAPSHOT.jar server ../config.yaml"
+- move to target folder and run "java -jar CourseProjectV1-0.0.1-SNAPSHOT.jar server ../config.yml"
 
 The server will start at port 8080. You can use UserResourceClient to interact with it. You can also get into admin interface by going to http://localhost:8081
 
-//add user
-curl -i -X PUT -H "Content-Type: application/json" -d '{"id":1,"name":"jack","city":"San Jose"}' http://localhost:8080/user
+//add device
+curl -i -X PUT -H "Content-Type: application/json" -d '{"id":11,"name":"test Device","status":0,"dataType":"lightding"}' http://localhost:8080/devices
 
-//get user
-curl -i -X GET -H "Content-Type: application/json"  http://localhost:8080/user/1
+//get device
+curl -i -X GET -H "Content-Type: application/json"  http://localhost:8080/devices/11
 
+//get device Data 
+curl -i -X GET -H "Content-Type: application/json"  http://localhost:8080/devices/1/temp
+
+//delete device
+
+curl -i -X DELETE -H "Content-Type: application/json"  http://localhost:8080/devices/11

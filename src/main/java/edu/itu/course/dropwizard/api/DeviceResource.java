@@ -1,5 +1,7 @@
 package edu.itu.course.dropwizard.api;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -9,8 +11,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import edu.itu.course.dropwizard.api.beans.Device;
+import edu.itu.course.dropwizard.api.beans.DeviceData;
 
 @Path("/devices")
 public interface DeviceResource {
@@ -36,6 +40,6 @@ public interface DeviceResource {
     @GET
     @Path("/{deviceId}/temp")
     @Produces(MediaType.APPLICATION_JSON)
-    public Device getDeviceDataById(@PathParam("deviceId") final int deviceId);
+    public Response getDeviceDataById(@PathParam("deviceId") final int deviceId);
 
 }

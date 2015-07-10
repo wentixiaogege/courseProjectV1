@@ -3,6 +3,9 @@ package edu.itu.course.dropwizard.api.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Device {
 	private int id;
     private String name;
@@ -11,12 +14,7 @@ public class Device {
 	private List<DeviceData> deviceDatas;
     
 
-	/**
-	 * @param deviceDatas the deviceDatas to set
-	 */
-	public void setDeviceDatas(List<DeviceData> deviceDatas) {
-		this.deviceDatas = deviceDatas;
-	}
+	
 
 	public static final Device EMPTY_DEVICE = new Device(Integer.MIN_VALUE, "", Integer.MIN_VALUE,"");
 
@@ -53,7 +51,12 @@ public class Device {
 	public List<DeviceData> getDeviceDatas() {
 			return deviceDatas;
 		}
-
+	/**
+	 * @param deviceDatas the deviceDatas to set
+	 */
+	public void setDeviceDatas(List<DeviceData> deviceDatas) {
+		this.deviceDatas = deviceDatas;
+	}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
