@@ -17,6 +17,8 @@
 package edu.itu.course.dropwizard;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xeiam.dropwizard.sundial.SundialConfiguration;
+
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
 
@@ -37,4 +39,16 @@ public class MyApplicationConfiguration extends Configuration{
     public DataSourceFactory getDataSourceFactory() {
         return database;
     }
+
+	
+  // Sundial
+  @Valid
+  @NotNull
+  public SundialConfiguration sundialConfiguration = new SundialConfiguration();
+
+  @JsonProperty("sundial")
+  public SundialConfiguration getSundialConfiguration() {
+
+    return sundialConfiguration;
+  }
 }

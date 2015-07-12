@@ -14,7 +14,9 @@ import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.itu.course.dropwizard.MyApplication;
+
+import de.spinscale.dropwizard.jobs.Job;
+import de.spinscale.dropwizard.jobs.annotations.Every;
 import edu.itu.course.dropwizard.api.DeviceResource;
 import edu.itu.course.dropwizard.api.beans.Device;
 import edu.itu.course.dropwizard.api.beans.DeviceData;
@@ -27,6 +29,7 @@ public class DeviceResourceImpl implements DeviceResource {
 	private final DeviceDataDAO deviceDataDAO;
 
 	private static Logger logger = LoggerFactory.getLogger(DeviceResourceImpl.class);
+	
 	public DeviceResourceImpl(DeviceDAO deviceDAO, DeviceDataDAO deviceDataDAO) {
 		super();
 		this.deviceDAO = deviceDAO;
@@ -169,4 +172,5 @@ public class DeviceResourceImpl implements DeviceResource {
 		
 		return null;
 	}
+	
 }

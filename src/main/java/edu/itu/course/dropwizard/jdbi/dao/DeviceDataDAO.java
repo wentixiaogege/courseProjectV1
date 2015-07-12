@@ -34,11 +34,16 @@ public interface DeviceDataDAO {
     
     @SqlQuery("select * from " + DEVICE_DATA_TABLE + " where device_id = :id and timestamp between :starttime and :endtime")
     List<DeviceData> getDevicePeriodDataByDeviceId(@Bind("id") int id,@Bind("starttime") Date starttime,@Bind("endtime") Date endendtime);
-    
 
     @SqlUpdate("delete from " + DEVICE_DATA_TABLE + " where id = :it")
     void removeDevice(@Bind int deviceId);
 
     @SqlUpdate("update " + DEVICE_DATA_TABLE + "set name = :name  where id = :it ")
-	Device updateDevicebyId(String deviceId);
+	void updateDeviceDatabyId(String deviceId);
+    
+    
+    @SqlUpdate("insert into " + DEVICE_DATA_TABLE + " (id, device_id, data,timestamp) values (:id, :device_id, :data, :timestamp)")
+    void insertDeviceDataById(@BindBean final DeviceData deviceData);
+    
+    
 }

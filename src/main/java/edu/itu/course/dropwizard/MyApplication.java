@@ -19,6 +19,7 @@ package edu.itu.course.dropwizard;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
+import io.dropwizard.lifecycle.Managed;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -26,10 +27,16 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.xeiam.dropwizard.sundial.SundialBundle;
+import com.xeiam.dropwizard.sundial.SundialConfiguration;
+
+import de.spinscale.dropwizard.jobs.JobsBundle;
 import edu.itu.course.dropwizard.health.DatabaseHealthCheck;
 import edu.itu.course.dropwizard.jdbi.dao.DeviceDAO;
 import edu.itu.course.dropwizard.jdbi.dao.DeviceDataDAO;
 import edu.itu.course.dropwizard.resources.DeviceResourceImpl;
+import edu.itu.course.dropwizard.resources.ManagedPeriodicTask;
+import edu.itu.course.dropwizard.resources.TestTask;
 
 /**
  * User: Jack Li
@@ -40,6 +47,7 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
 //  private static Logger logger = Logger.getLogger(MyApplication.class.getName());
 
 	private static Logger logger = LoggerFactory.getLogger(MyApplication.class);
+	
 		public static void main(String[] args) throws Exception {
         new MyApplication().run(args);
     }
@@ -52,7 +60,26 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
 
     @Override
     public void initialize(Bootstrap<MyApplicationConfiguration> bootstrap) {
+    	
+	/*  GuiceBundle<MyApplicationConfiguration> guiceBundle = GuiceBundle.<MyApplicationConfiguration>newBuilder()
+			    .addModule( new GuiceModule() )
+			    .setConfigClass( MyApplicationConfiguration.class )
+//			    .enableAutoConfig(getClass().getPackage().getName())
+			    .build();
+	  bootstrap.addBundle( guiceBundle );
+	
+	  GuiceJobsBundle guiceJobsBundle = new GuiceJobsBundle(
+			  "edu.itu.course.dropwizard.jobs",
+	    guiceBundle.getInjector() );
+	  bootstrap.addBundle( guiceJobsBundle );*/
+      bootstrap.addBundle(new SundialBundle<MyApplicationConfiguration>() {
 
+    	      @Override
+    	      public SundialConfiguration getSundialConfiguration(MyApplicationConfiguration configuration) {
+    	        return configuration.getSundialConfiguration();
+    	      }
+    	    });
+//      bootstrap.addBundle(new JobsBundle( "edu.itu.course.dropwizard.jobs"));
     }
 
     public void run(MyApplicationConfiguration configuration,
@@ -81,13 +108,26 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
             }
 
         }
+        DeviceResourceImpl deviceResourceImpl =  new DeviceResourceImpl(dao,dataDAO);
         //add health check
+        
+        // Add object to ServletContext for accessing from Sundial Jobs
+        environment.getApplicationContext().setAttribute("MyKey", deviceResourceImpl);
         
         DatabaseHealthCheck healthCheck = new DatabaseHealthCheck(jdbi, dataSourceFactory);
         
         environment.healthChecks().register("DatabaseHealthCheck", healthCheck);
         
-        environment.jersey().register(new DeviceResourceImpl(dao,dataDAO));
+     
+        
+        environment.jersey().register(deviceResourceImpl);
+        
+//        environment.admin().addTask(new TestTask("Testtask",new DeviceResourceImpl(dao,dataDAO)));
+        
+//        environment.lifecycle().
+/*        final Managed managedImplementer = new ManagedPeriodicTask(new TestTask(new DeviceResourceImpl(dao,dataDAO)));
+        environment.lifecycle().manage(managedImplementer);*/
+       
 
     }
 
