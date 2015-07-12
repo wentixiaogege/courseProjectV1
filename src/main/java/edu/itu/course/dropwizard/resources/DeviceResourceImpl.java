@@ -173,4 +173,9 @@ public class DeviceResourceImpl implements DeviceResource {
 		return null;
 	}
 	
+	public void insertDeviceDataByDeviceId(DeviceData deviceData){
+		
+		this.deviceDataDAO.insertDeviceDataById(deviceData);
+	}
+	
 }

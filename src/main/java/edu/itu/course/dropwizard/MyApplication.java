@@ -121,6 +121,16 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
      
         
         environment.jersey().register(deviceResourceImpl);
+     
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
 //        environment.admin().addTask(new TestTask("Testtask",new DeviceResourceImpl(dao,dataDAO)));
         
