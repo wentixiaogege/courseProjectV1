@@ -95,7 +95,7 @@ logging:
   appenders:
     # Log INFO to stderr
     - type: console
-      threshold: INFO
+      threshold: DEBUG
       target: stderr
       logFormat: "%-5level [%thread][%logger{0}]: %message%n"
 

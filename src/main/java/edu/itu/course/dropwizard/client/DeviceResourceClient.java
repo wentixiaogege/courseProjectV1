@@ -72,13 +72,13 @@ public class DeviceResourceClient implements DeviceResource{
 	}
 
 	@Override
-	public Device relayDeviceById(int deviceId, JSONObject t) {
+	public String relayDeviceById(int deviceId, JSONObject t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Device relayDeviceByParamAndId(int deviceId, int relayState) {
+	public String relayDeviceByParamAndId(int deviceId, int relayState) {
 		// TODO Auto-generated method stub
 		return null;
 	}

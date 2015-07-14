@@ -12,6 +12,7 @@ public class ManagedPeriodicTask implements Managed {
     private final Logger LOGGER = LoggerFactory.getLogger(ManagedPeriodicTask.class);
     private final AbstractScheduledService periodicTask;
 
+    
     public ManagedPeriodicTask(AbstractScheduledService periodicTask) {
         this.periodicTask = periodicTask;
     }

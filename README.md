@@ -30,3 +30,7 @@ curl -i -X GET -H "Content-Type: application/json"  http://localhost:8080/device
 //delete device
 
 curl -i -X DELETE -H "Content-Type: application/json"  http://localhost:8080/devices/11
+
+//relay the device
+curl -i -X PUT -H "Content-Type: application/json" http://localhost:8080/devices/1/1
+

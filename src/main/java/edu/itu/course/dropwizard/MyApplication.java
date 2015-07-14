@@ -16,6 +16,8 @@
 
 package edu.itu.course.dropwizard;
 
+import java.util.concurrent.ExecutorService;
+
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
@@ -29,8 +31,8 @@ import org.slf4j.LoggerFactory;
 
 import com.xeiam.dropwizard.sundial.SundialBundle;
 import com.xeiam.dropwizard.sundial.SundialConfiguration;
+import com.xeiam.sundial.SundialJobScheduler;
 
-import de.spinscale.dropwizard.jobs.JobsBundle;
 import edu.itu.course.dropwizard.health.DatabaseHealthCheck;
 import edu.itu.course.dropwizard.jdbi.dao.DeviceDAO;
 import edu.itu.course.dropwizard.jdbi.dao.DeviceDataDAO;
@@ -61,17 +63,7 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
     @Override
     public void initialize(Bootstrap<MyApplicationConfiguration> bootstrap) {
     	
-	/*  GuiceBundle<MyApplicationConfiguration> guiceBundle = GuiceBundle.<MyApplicationConfiguration>newBuilder()
-			    .addModule( new GuiceModule() )
-			    .setConfigClass( MyApplicationConfiguration.class )
-//			    .enableAutoConfig(getClass().getPackage().getName())
-			    .build();
-	  bootstrap.addBundle( guiceBundle );
-	
-	  GuiceJobsBundle guiceJobsBundle = new GuiceJobsBundle(
-			  "edu.itu.course.dropwizard.jobs",
-	    guiceBundle.getInjector() );
-	  bootstrap.addBundle( guiceJobsBundle );*/
+
       bootstrap.addBundle(new SundialBundle<MyApplicationConfiguration>() {
 
     	      @Override
@@ -79,7 +71,6 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
     	        return configuration.getSundialConfiguration();
     	      }
     	    });
-//      bootstrap.addBundle(new JobsBundle( "edu.itu.course.dropwizard.jobs"));
     }
 
     public void run(MyApplicationConfiguration configuration,
@@ -108,6 +99,11 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
             }
 
         }
+        final ExecutorService executorService = environment.lifecycle().executorService("executorService").minThreads(4).maxThreads(10).build();
+        
+        environment.getApplicationContext().setAttribute("ExecutorService", executorService);
+    
+        
         DeviceResourceImpl deviceResourceImpl =  new DeviceResourceImpl(dao,dataDAO);
         //add health check
         
@@ -118,19 +114,19 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
         
         environment.healthChecks().register("DatabaseHealthCheck", healthCheck);
         
-     
-        
         environment.jersey().register(deviceResourceImpl);
      
         
         
         
-        
-        
-        
-        
-        
-        
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                  System.out.println("shutdown Hook called");
+                  //database.close();
+                  final ExecutorService executor = (ExecutorService) SundialJobScheduler.getServletContext().getAttribute("ExecutorService");
+            	  executor.shutdown();
+            }
+          });
         
 //        environment.admin().addTask(new TestTask("Testtask",new DeviceResourceImpl(dao,dataDAO)));
         

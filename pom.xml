@@ -68,20 +68,19 @@
 			<artifactId>jettison</artifactId>
 			<version>1.3.7</version>
 		</dependency>
-		
+	<!--  
 		<dependency>
 		  <groupId>de.spinscale</groupId>
 		  <artifactId>dropwizard-jobs-core</artifactId>
 		 <exclusions>
-	        <exclusion>  <!-- declare the exclusion here -->
-		         <groupId>org.quartz-scheduler</groupId>
-				<artifactId>quartz</artifactId>
-	        </exclusion>
-	        <exclusion>  <!-- declare the exclusion here -->
+	        <exclusion> 
 		         <groupId>org.javassist</groupId>
 				 <artifactId>javassist</artifactId>
 	        </exclusion>
-	        
+	         <exclusion>  
+	        			 <groupId>org.quartz-scheduler</groupId>
+						<artifactId>quartz</artifactId>
+	        </exclusion>
 	      </exclusions> 
 		  <version>1.0.1</version>
 		</dependency>
@@ -89,24 +88,25 @@
 		  <groupId>de.spinscale</groupId>
 		  <artifactId>dropwizard-jobs-guice</artifactId>
 		  <exclusions>
-	        <exclusion>  <!-- declare the exclusion here -->
+	        <exclusion>  
 	        			 <groupId>org.quartz-scheduler</groupId>
 						<artifactId>quartz</artifactId>
 	        </exclusion>
-	         <exclusion>  <!-- declare the exclusion here -->
+	         <exclusion> 
 	       			 <groupId>aopalliance</groupId>
 					<artifactId>aopalliance</artifactId>
 	        </exclusion>
 	      </exclusions> 
 		  <version>1.0.1</version>
 		</dependency>
+		-->	
 		<dependency>
 	      <groupId>edu.itu.courseProject</groupId>
 	      <artifactId>CourseProject</artifactId>
 	      <exclusions>
 				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
 				</exclusion>
 			</exclusions>
 	      <version>0.0.1-SNAPSHOT</version>
@@ -122,8 +122,9 @@
 		         <groupId>com.fasterxml.jackson.core</groupId>
 	            <artifactId>jackson-core</artifactId>
 		        </exclusion>
+		        
 	      </exclusions> 
-			<version>0.8.1.0</version>
+			<version>0.8.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.xeiam</groupId>

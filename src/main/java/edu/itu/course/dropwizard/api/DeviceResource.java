@@ -44,12 +44,12 @@ public interface DeviceResource {
     @Path("/{deviceId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Device relayDeviceById(@PathParam("deviceId") final int deviceId,JSONObject t);
+    public String relayDeviceById(@PathParam("deviceId") final int deviceId,JSONObject t);
     
     @POST
     @Path("/{deviceId}/{relayState}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Device relayDeviceByParamAndId(@PathParam("deviceId") final int deviceId,
+    @Produces(MediaType.APPLICATION_JSON)
+    public String relayDeviceByParamAndId(@PathParam("deviceId") final int deviceId,
     									  @PathParam("relayState") final int relayState);
     
     @GET

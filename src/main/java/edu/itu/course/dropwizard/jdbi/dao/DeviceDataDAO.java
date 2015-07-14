@@ -42,7 +42,7 @@ public interface DeviceDataDAO {
 	void updateDeviceDatabyId(String deviceId);
     
     
-    @SqlUpdate("insert into " + DEVICE_DATA_TABLE + " (id, device_id, data,timestamp) values (:id, :device_id, :data, :timestamp)")
+    @SqlUpdate("insert into " + DEVICE_DATA_TABLE + " (device_id, data,timestamp) values (:deviceId, :data, :timestamp)")
     void insertDeviceDataById(@BindBean final DeviceData deviceData);
     
     
