@@ -56,7 +56,7 @@ public class MyXbeeJob extends Job {
 				public String call() throws Exception {
 					
 					
-					logger.debug("coming inside the reading");
+					logger.debug("future coming inside the reading");
 					// sending command reading temp data
 					xbee.sendXbeeData(XbeeEnum.READING.getValue());
 
@@ -67,7 +67,7 @@ public class MyXbeeJob extends Job {
 						if (receivedString.equals(XbeeEnum.ERROR_RESPONSE.getValue())) {
 							logger.error("error sendXbeeData(xbee,XbeeEnum.READING.getValue());");
 						}
-						logger.info("---> received Data is :" + receivedString);
+						logger.info("future ---> received Data is :" + receivedString);
 
 						if (receivedString.equals(XbeeEnum.READING_DONE.getValue())) {
 							logger.info("command reading data succuess!!");
@@ -77,7 +77,7 @@ public class MyXbeeJob extends Job {
 						DeviceData currentDeviceData = new DeviceData(1, Float.parseFloat(receivedString), new Date());
 						deviceResourceImpl.insertDeviceDataByDeviceId(currentDeviceData);
 
-						logger.info("cron MyXbeeJob insert data is " + currentDeviceData);
+						logger.info("future cron MyXbeeJob insert data is " + currentDeviceData);
 
 					}else
 					{
@@ -94,7 +94,7 @@ public class MyXbeeJob extends Job {
 
 			//can using timeout parameters
 			//waiting for 5 seconds
-			futureResult = future.get(5000, TimeUnit.SECONDS);
+			futureResult = future.get(4000, TimeUnit.SECONDS);
 			
 			logger.info("future reading xbee result is%s"  + futureResult);
 //			executor.notify();

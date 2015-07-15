@@ -13,6 +13,7 @@ import org.codehaus.jettison.json.JSONObject;
 import edu.itu.course.dropwizard.api.DeviceResource;
 import edu.itu.course.dropwizard.api.beans.Device;
 import edu.itu.course.dropwizard.api.beans.DeviceData;
+import edu.itu.course.dropwizard.api.beans.QueryDeviceData;
 
 public class DeviceResourceClient implements DeviceResource{
 
@@ -60,7 +61,7 @@ public class DeviceResourceClient implements DeviceResource{
 	}
 
 	@Override
-	public Response getDevicePeroidDataById(int deviceId, JSONObject t) {
+	public Response getDevicePeroidDataById(int deviceId, QueryDeviceData t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -71,14 +72,15 @@ public class DeviceResourceClient implements DeviceResource{
 		return null;
 	}
 
+
 	@Override
-	public String relayDeviceById(int deviceId, JSONObject t) {
+	public String relayDeviceByParamAndId(int deviceId, int relayState) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String relayDeviceByParamAndId(int deviceId, int relayState) {
+	public String relayDeviceById(int deviceId, JSONObject t) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -32,7 +32,7 @@ public interface DeviceDataDAO {
     List<DeviceData> getDeviceDataByDeviceId(@Bind("id") int id);
     
     
-    @SqlQuery("select * from " + DEVICE_DATA_TABLE + " where device_id = :id and timestamp between :starttime and :endtime")
+    @SqlQuery("select * from " + DEVICE_DATA_TABLE + " where device_id = :id and timestamp between :starttime and :endtime order by id ASC")
     List<DeviceData> getDevicePeriodDataByDeviceId(@Bind("id") int id,@Bind("starttime") Date starttime,@Bind("endtime") Date endendtime);
 
     @SqlUpdate("delete from " + DEVICE_DATA_TABLE + " where id = :it")

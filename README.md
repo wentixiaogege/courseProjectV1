@@ -25,12 +25,19 @@ curl -i -X PUT -H "Content-Type: application/json" -d '{"id":11,"name":"test Dev
 curl -i -X GET -H "Content-Type: application/json"  http://localhost:8080/devices/11
 
 //get device Data 
-curl -i -X GET -H "Content-Type: application/json"  http://localhost:8080/devices/1/temp
+curl -i -X GET -H "Content-Type: application/json"  http://localhost:8080/devices/1/all/temp
+
+//get period device data
+//using json 
+curl -i -X POST -H "Content-Type: application/json" -d '{"intervals":3600,"starttime":"2015-07-13 18:18:04","endtime":"2015-07-13 23:31:15"}' http://localhost:8080/devices/1/peroid/temp
+
+curl -i -X GET -H "Content-Type: application/json" -d '{"glossary":{"intervals":3600,"starttime":"2015-07-13 18:18:04","status":0,"endtime":"2015-07-13 23:31:15"}}' http://localhost:8080/devices/1/peroid/temp
+//using url pathparam
 
 //delete device
 
 curl -i -X DELETE -H "Content-Type: application/json"  http://localhost:8080/devices/11
 
 //relay the device
-curl -i -X PUT -H "Content-Type: application/json" http://localhost:8080/devices/1/1
+curl -i -X POST -H "Content-Type: application/json" http://localhost:8080/devices/1/1
 

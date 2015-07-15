@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jettison.json.JSONObject;
 
 import edu.itu.course.dropwizard.api.beans.Device;
+import edu.itu.course.dropwizard.api.beans.QueryDeviceData;
 
 @Path("/devices")
 public interface DeviceResource {
@@ -61,7 +62,7 @@ public interface DeviceResource {
     @Path("/{deviceId}/peroid/temp")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getDevicePeroidDataById(@PathParam("deviceId") final int deviceId,JSONObject t);
+    public Response getDevicePeroidDataById(@PathParam("deviceId") final int deviceId,QueryDeviceData t);
 
     @GET
     @Path("/{deviceId}/peroid/temp")
