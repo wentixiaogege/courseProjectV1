@@ -85,6 +85,12 @@ public class DeviceResourceClient implements DeviceResource{
 		return null;
 	}
 
+	@Override
+	public Response postDevicePeroidDataById(int deviceId, JSONObject t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 

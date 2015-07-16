@@ -1,0 +1,21 @@
+.table tbody>tr>th.vcenter,
+.table tbody>tr>td.vcenter {
+    vertical-align: middle;
+}
+
+.btn-default.optmize_width {
+    width: 40%;
+}
+
+.container.withborder {
+    background-color: #fff;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    border-style: solid;
+}
+
+.form-control.devide {
+	width: 100px;
+	display: inherit;
+}

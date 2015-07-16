@@ -1,0 +1,56 @@
+[{
+	"sm_id": "1",
+	"sm_name": "smart meter 1",
+	"content":"test1",
+	"lights": [{
+		"status": 1,
+		"load_id": 1,
+		"load_name": "light1",
+		"temp": 80,
+		"max_temp": 100,
+		"min_temp": 20
+	}, {
+		"status": 0,
+		"load_id": 2,
+		"load_name": "light2",
+		"temp": 80,
+		"max_temp": 100,
+		"min_temp": 20
+	}]
+}, {
+	"sm_id": "2",
+	"sm_name": "smart meter 2",
+	"lights": [{
+		"status": 1,
+		"load_id": 1,
+		"load_name": "light1",
+		"temp": 80,
+		"max_temp": 100,
+		"min_temp": 20
+	}, {
+		"status": 0,
+		"load_id": 2,
+		"load_name": "light2",
+		"temp": 80,
+		"max_temp": 100,
+		"min_temp": 20
+	}]
+}, {
+	"sm_id": "3",
+	"sm_name": "smart meter 3",
+	"lights": [{
+		"status": 1,
+		"load_id": 1,
+		"load_name": "light5",
+		"temp": 80,
+		"max_temp": 100,
+		"min_temp": 20
+	}, {
+		"status": 0,
+		"load_id": 2,
+		"load_name": "light6",
+		"temp": 80,
+		"max_temp": 100,
+		"min_temp": 20
+	}]
+}]

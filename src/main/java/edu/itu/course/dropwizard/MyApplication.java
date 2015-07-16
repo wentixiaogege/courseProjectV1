@@ -19,6 +19,7 @@ package edu.itu.course.dropwizard;
 import java.util.concurrent.ExecutorService;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.lifecycle.Managed;
@@ -63,7 +64,10 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
     @Override
     public void initialize(Bootstrap<MyApplicationConfiguration> bootstrap) {
     	
-
+      //adding the front page assets 
+      //need add the assets depedency
+      bootstrap.addBundle(new AssetsBundle("/webapp/", "/"));
+    	
       bootstrap.addBundle(new SundialBundle<MyApplicationConfiguration>() {
 
     	      @Override

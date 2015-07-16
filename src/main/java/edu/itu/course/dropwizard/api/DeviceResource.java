@@ -63,6 +63,12 @@ public interface DeviceResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getDevicePeroidDataById(@PathParam("deviceId") final int deviceId,QueryDeviceData t);
+    
+    @POST
+    @Path("/{deviceId}/peroid/temp")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postDevicePeroidDataById(@PathParam("deviceId") final int deviceId,JSONObject t);
 
     @GET
     @Path("/{deviceId}/peroid/temp")

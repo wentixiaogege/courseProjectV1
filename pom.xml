@@ -147,6 +147,12 @@
 			<artifactId>xchart</artifactId>
 			<version>2.5.0</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-assets</artifactId>
+			<version>${dropwizard.version}</version>
+		</dependency>
     </dependencies>
     
     <build>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html ng-app="admin">
+
+<head>
+    <meta charset="utf-8">
+    <script src="../js/jquery-2.1.3.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script src="//code.angularjs.org/1.3.0/angular-sanitize.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bower-angular-translate/2.0.1/angular-translate.min.js"></script>
+    <script src="../js/dialog/dialogs-default-translations.js"></script>
+    <script src="../js/dialog/dialogs.js"></script>
+    <script src="admin.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/grid.css">
+    <link rel="stylesheet" type="text/css" href="../css/dialog/dialogs.css">
+</head>
+
+<body ng-controller="SmartMeterLightCtrl">
+    <div class="container">
+        <div>
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+        <div class="btn-group">
+            <label class="btn btn-success" ng-click="changeServer('localServer')" ng-model="serverModel" btn-radio="'localServer'" uncheckable>Local Server</label>
+            <label class="btn btn-success" ng-click="changeServer('dataServer')" ng-model="serverModel" btn-radio="'dataServer'" uncheckable>Data Server</label>
+            <button type="button" class="btn btn-primary" style="margin-left:100px" ng-click="stop_refresh()">
+                {{stopTest}}
+            </button>
+        </div>
+        <tabset>
+            <tab ng-repeat="smartMeter in smartmeters" select="go(smartMeter)" ng-model="smartMeter" heading="{{smartMeter.sm_name}}" active="smartMeter.active" disabled="smartMeter.disabled">
+                <div class="row">
+                    <div class="col-xs-2">Device Name</div>
+                    <div class="col-xs-2">Temprature</div>
+                    <div class="col-xs-1">Status</div>
+                    <div class="col-xs-1">Min</div>
+                    <div class="col-xs-1">Max</div>
+                    <div class="col-xs-2">Action</div>
+                    <div class="col-xs-3">Edit</div>
+                </div>
+                <div class="row" ng-repeat="light in smartMeter.lightDatas" ng-model="light">
+                    <div class="col-xs-2 col-xs-height">{{light.device_name}}</div>
+                    <div class="col-xs-2 col-xs-height">{{light.temp_data * 1.8 + 32}}℉ [{{light.temp_data}}℃]</div>
+                    <div class="col-xs-1 col-xs-height"><span class="{{light.light_pic_class}}"></span></div>
+                    <div class="col-xs-1 col-xs-height">{{light.min_value}}</div>
+                    <div class="col-xs-1 col-xs-height">{{light.max_value}}</div>
+                    <div class="col-xs-2 col-xs-height">
+                        <button type="button" ng-click="change_light(smartMeter, light, light.device_status)" class="btn {{light.light_class}} btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                    </div>
+                    <div class="col-xs-3 col-xs-height">
+                        <input type="text" class="form-control inline" ng-init='minTemp=light.min_value' ng-model='minTemp' value="{{light.min_value}}">-
+                        <input type="text" class="form-control inline" ng-model='maxTemp' ng-init='maxTemp=light.max_value' value="{{light.max_value}}">
+                        <button type="button" class="btn btn-default btn-sm" ng-click='change_temp(smartMeter, light, minTemp, maxTemp)'>Confirm</button>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</body>
+
+</html>

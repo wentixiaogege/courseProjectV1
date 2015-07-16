@@ -332,4 +332,16 @@ public class DeviceResourceImpl implements DeviceResource {
 		this.deviceDataDAO.insertDeviceDataById(deviceData);
 	}
 
+	@Override
+	public Response postDevicePeroidDataById(int deviceId, JSONObject t) {
+		// TODO Auto-generated method stub
+		try {
+			logger.info("test tring is ---"+t.getInt("intervals")+t.getString("starttime")+t.getString("endtime"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

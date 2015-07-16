@@ -1,0 +1,13 @@
+[{
+	"coordinator_id": 0,
+	"sm_id": 3,
+	"sm_name": "smart meter 3",
+	"lightDatas": [{
+		"device_id": 2,
+		"device_config_id": 5,
+		"max_value": 99.13,
+		"min_value": -20,
+		"status": 1,
+		"temp_data": 30
+	}]
+}]
