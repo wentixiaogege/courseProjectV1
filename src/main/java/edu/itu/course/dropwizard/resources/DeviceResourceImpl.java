@@ -20,6 +20,7 @@ import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -55,7 +56,12 @@ public class DeviceResourceImpl implements DeviceResource {
 		// TODO Auto-generated method stub
 		this.deviceDAO.insert(device);
 	}
-
+	
+	@Override
+	public Response getDevices() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	public Device getDeviceById(int deviceId) {
 		// TODO Auto-generated method stub
 		return this.deviceDAO.findDeviceById(deviceId);
@@ -80,7 +86,9 @@ public class DeviceResourceImpl implements DeviceResource {
 	}
 
 	private Date getDateFromString(String dateString) {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		
+		DateFormat df = new SimpleDateFormat(DateUtils.FOMAT_DATE);
 		Date date;
 		try {
 
@@ -107,7 +115,7 @@ public class DeviceResourceImpl implements DeviceResource {
 			
 			long iterateDateTime = DateUtils.toUnixTime(list.get(0)
 					.getTimestamp()) + intervals;
-			logger.info("first iterationTime is "+iterateDateTime);
+			logger.debug("first iterationTime is "+iterateDateTime);
 			avgDouble = 0.0f;
 			intervalnum = 0;
 			for (int j = 0; j < list.size(); j++) {
@@ -116,10 +124,10 @@ public class DeviceResourceImpl implements DeviceResource {
 					
 					intervalnum++;
 					avgDouble += list.get(j).getData();
-					logger.info("next data is "+DateUtils.toUnixTime(list.get(j).getTimestamp()));
+					logger.debug("next data is "+DateUtils.toUnixTime(list.get(j).getTimestamp()));
 				} else if (intervalnum > 0)
 				{
-					logger.info("next iterationTime is "+iterateDateTime+"j is"+j);
+					logger.debug("next iterationTime is "+iterateDateTime+"j is"+j);
 
 					avgDouble /= intervalnum;
 					DeviceData tmpData = new DeviceData(list.get(j - 1).getId(),
@@ -157,7 +165,9 @@ public class DeviceResourceImpl implements DeviceResource {
 		 * { starttime = getDateFromString(t.getString("starttime")); } if
 		 * (t.has("endtime")) { endtime =
 		 * getDateFromString(t.getString("endtime")); }
+		
 		 */
+		
 		intervals = t.getIntervals();
 		starttime = getDateFromString(t.getStarttime());
 		endtime = getDateFromString(t.getEndtime());
@@ -333,15 +343,37 @@ public class DeviceResourceImpl implements DeviceResource {
 	}
 
 	@Override
-	public Response postDevicePeroidDataById(int deviceId, JSONObject t) {
+	public Response postDevicePeroidDataById(int deviceId, QueryDeviceData t) {
+		logger.info("test string is ---"+t.toString());
 		// TODO Auto-generated method stub
-		try {
-			logger.info("test tring is ---"+t.getInt("intervals")+t.getString("starttime")+t.getString("endtime"));
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+
+		int intervals = 0;
+		Date starttime = null, endtime = null;
+		/*
+		 * if (t.has("intervals")) { intervals =
+		 * Integer.parseInt(t.getString("intervals")); } if (t.has("starttime"))
+		 * { starttime = getDateFromString(t.getString("starttime")); } if
+		 * (t.has("endtime")) { endtime =
+		 * getDateFromString(t.getString("endtime")); }
+		
+		 */
+		
+		intervals = t.getIntervals();
+		starttime = getDateFromString(t.getStarttime());
+		endtime = getDateFromString(t.getEndtime());
+
+		logger.info("getDevicePeroidDataById--" + "deviceId" + deviceId
+				+ "intervals" + intervals + "starttime" + t.getStarttime() + "endtime"
+				+ t.getEndtime());
+		// change data into right format!
+
+		List<DeviceData> list = this.deviceDataDAO
+				.getDevicePeriodDataByDeviceId(deviceId, starttime, endtime);// (deviceId);
+
+		logger.info("list size is ---------"+list.size());
+		return Response.status(200).entity(getAvg(list, intervals)).build();
 	}
+
+	
 
 }

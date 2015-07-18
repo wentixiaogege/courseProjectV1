@@ -1,7 +1,5 @@
 package edu.itu.course.dropwizard.client;
 
-import java.util.List;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -12,7 +10,6 @@ import org.codehaus.jettison.json.JSONObject;
 
 import edu.itu.course.dropwizard.api.DeviceResource;
 import edu.itu.course.dropwizard.api.beans.Device;
-import edu.itu.course.dropwizard.api.beans.DeviceData;
 import edu.itu.course.dropwizard.api.beans.QueryDeviceData;
 
 public class DeviceResourceClient implements DeviceResource{
@@ -86,7 +83,13 @@ public class DeviceResourceClient implements DeviceResource{
 	}
 
 	@Override
-	public Response postDevicePeroidDataById(int deviceId, JSONObject t) {
+	public Response postDevicePeroidDataById(int deviceId, QueryDeviceData t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response getDevices() {
 		// TODO Auto-generated method stub
 		return null;
 	}

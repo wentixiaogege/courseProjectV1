@@ -14,7 +14,7 @@ angular.module('admin').controller('SmartMeterLightCtrl', function($scope, $inte
         $http({
             method: 'GET',
             // url: 'testdata2.json',
-            url: '../front/lightssearchaction?server=' + server,
+            url:    ,//'../front/lightssearchaction?server=' + server,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }

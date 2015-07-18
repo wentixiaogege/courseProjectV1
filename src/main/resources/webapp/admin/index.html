@@ -21,6 +21,7 @@
         <div>
             <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
         </div>
+        <!--  
         <div class="btn-group">
             <label class="btn btn-success" ng-click="changeServer('localServer')" ng-model="serverModel" btn-radio="'localServer'" uncheckable>Local Server</label>
             <label class="btn btn-success" ng-click="changeServer('dataServer')" ng-model="serverModel" btn-radio="'dataServer'" uncheckable>Data Server</label>
@@ -28,6 +29,7 @@
                 {{stopTest}}
             </button>
         </div>
+        -->
         <tabset>
             <tab ng-repeat="smartMeter in smartmeters" select="go(smartMeter)" ng-model="smartMeter" heading="{{smartMeter.sm_name}}" active="smartMeter.active" disabled="smartMeter.disabled">
                 <div class="row">

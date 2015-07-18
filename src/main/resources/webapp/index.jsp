@@ -64,14 +64,14 @@
         		
         		<th class="text-nowrap vcenter">Device</th>
                 <td colspan="2">
-                    <select class="form-control" id="selSmartMeter" ng-model="smartmeter" ng-change="updateSmartMeter(smartmeter)" ng-options="option as option.mac for option in  SmartMeters"></select>
+                    <select class="form-control" id="selDevice" ng-model="device" ng-change="updateDevice(device)" ng-options="option as option.mac for option in  Devices"></select>
                 </td>
         	</tr>
         	<tr>
                 <th id="thTimeSpan" class="text-nowrap vcenter">{{searchTimeType.desp}}</th>
         		<td colspan="2" class="text-center">
-                    <select class="form-control" id="searchPeriod" ng-model="peroid" ng-options="option as option.desp for option in  SearchPeriods"></select>
-                    <span style="display:none" id="spanDatePicker">
+                    <select  style="display:none" class="form-control" id="searchPeriod" ng-model="peroid" ng-options="option as option.desp for option in  SearchPeriods"></select>
+                    <span id="spanDatePicker">
                         <input type="text" ng-model="startDate" class="form-control devide" id="datefrom" name="datefrom"> --- <input ng-model="endDate" class="form-control devide" type="text" id="dateto" name="dateto">
                     </span>
         		</td>

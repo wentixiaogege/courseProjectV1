@@ -28,7 +28,7 @@ function DeviceProperty(fullName, datas) {
     this.propName = fullName.substring(index + 1);
 //    this.times = times;
     this.datas = datas;
-    this.ptype = fullName.substring(0, index);
+    this.ptype = fullName;//.substring(0, index);
     this.isDisplay = false;
 }
 
@@ -71,7 +71,7 @@ Device.prototype.initDisplay = function() {
 
             // every property has display data. it is a array like [[time,value,'value',comment], [time,value,'value',comment]]
             // I will construct it.
-//            var len = prop.times.length;
+            var len = prop.datas.length;
             var displayData = [];
             for (var j = 0; j < len; j++) {
                 var info = [];
@@ -121,10 +121,10 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
     //    $scope.server = $scope.Servers[0];
     $scope.startDate = "";
     $scope.endDate = "";
-    // searchTimeType: 0: peroid, 1, date range.
+    // searchTimeType: 1: peroid, 0, date range.
     $scope.searchTimeType = {
-        val: "1",
-        desp: "Period",
+        val: "0",
+        desp: "Date",
         per_desc: "Period Picker",
         date_desc: "Date Picker"
     };
@@ -159,26 +159,33 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
         defaultDate: "+1w",
         changeMonth: true,
         numberOfMonths: 1,
+        dateFormat: "yy-mm-dd",
         onClose: function(selectedDate) {
             $("#dateto").datepicker("option", "minDate", selectedDate);
         },
         onSelect: function(dateText, inst) {
             console.log(dateText);
             // $scope.searchParam.startDate = dateText;
-            $scope.startDate = dateText;
+            
+//            var new_date = jQuery.datepicker.formatDate('yyyy-MM-dd HH:mm:ss', new_date);
+            
+//            console.log("new Date test is "+ new_date);
+            
+            $scope.startDate = dateText +" 00:00:00";
         }
     });
     $("#dateto").datepicker({
         defaultDate: "+1w",
         changeMonth: true,
         numberOfMonths: 1,
+        dateFormat: "yy-mm-dd",
         onClose: function(selectedDate) {
             $("#datefrom").datepicker("option", "maxDate", selectedDate);
         },
         onSelect: function(dateText, inst) {
             console.log(dateText);
             // $scope.searchParam.endDate = dateText;
-            $scope.endDate = dateText;
+            $scope.endDate = dateText+" 00:00:00";
         }
     });
 
@@ -199,9 +206,7 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
      */
     $scope.constructDevice = function(data) {
         $scope.devices = [];
-        //1. get all devices
-        var dataLength = data.length;
-
+        
         var device = new Device($scope.device.id, "Jack Test Device Name", "TEMP");
         
         var deviceProperty = new DeviceProperty("TEMP", data);
@@ -209,7 +214,7 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
         device.setPropData(deviceProperty);
         
         for (var j = 0; j < data.length; j++) {
-            var prop = deviceData[j];
+            var prop = data[j];
            
            
         };
@@ -247,14 +252,9 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
      * http request
      */
     $scope.doRequest = function(url) {
-        $http({
-            method: 'GET',
-            url: url,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: $scope.getSearchParam()
-        }).success(function(data, status, headers, config) {
+    	
+    	$http.post(url, $scope.getSearchParam())
+    	.success(function(data, status, headers, config) {
             console.log(JSON.stringify(data));
             console.log(status);
             //init data
@@ -265,6 +265,8 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
 
             $("#accordion").accordion("refresh");
             $("#accordion").accordion("option", "active", 0);
+            
+            $scope.errors = [];
 
         }).
         error(function(data, status, headers, config) {
@@ -275,6 +277,15 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
             // or server returns response with an error status.
         });
     };
+    	
+       /* $http.get({
+            method: 'GET',
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: $scope.getSearchParam()
+        })*/
 
     $scope.getSearchParam = function() {
         return {
@@ -285,7 +296,9 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
             endDate: $scope.endDate,
             interval: $scope.interval.id,
             // interval: 0,
-            searchTimeType: $scope.searchTimeType.val*/
+            searchTimeType: $scope.searchTimeType.val
+            new Date();
+            */
             
             intervals: $scope.interval.id,
             starttime: $scope.startDate,
@@ -296,15 +309,69 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
     $scope.confirm = function() {
         console.log("submitting");
         console.log($("#datefrom").val());
+        
+        if ($scope.searchTimeType.val === "1") {
+        	
+        	var chosen_period = $scope.peroid.id;
+        	
+        	var startDate = new Date();
+     		var endDate = new Date();
+     		
+        	var interval;
+        	switch (chosen_period) {
+    		case "0":
+    			interval = 0;
+    			break;
+    		case "1h":
+    			interval = 3600;
+    			break;
+    		case "5h":
+    			interval = 5 * 3600;
+    			break;
+    		case "1d":
+    			interval = 24 * 3600;
+    			break;
+    		case "1m":
+    			interval = 24 * 3600 * 30;
+    			break;
+    		case "1w":
+    			interval = 24 * 3600 * 7;
+    			break;
+    		default:
+    			interval = 3600;
+    			break;
+    		}
+        	
+        	console.log("startDate is "+ startDate.setTime(endDate.getTime()-interval*1000));
+
+        	//.toJSON()  JSON.stringify
+        	
+        	//var string = JSON.stringify(endDate).replace('T'," ");
+        	//console.log(string);
+
+        	//console.log(string.replace(/\.\d{3}./,""));
+        	
+        	
+        	$scope.endDate  =  JSON.stringify(endDate).replace('T'," ").replace(/\"|\.\d{3}./g,"");//.toJSON();
+        	$scope.startDate = JSON.stringify(startDate).replace('T'," ").replace(/\"|\.\d{3}./g,"");//.replace('"',"").replace('"',"");//.toJSON();
+        	
+        	console.log("$scope.startDate is "+$scope.startDate);
+        	console.log("$scope.endDate   is"+$scope.endDate)
+        	
+        }
+        
         if ($scope.docheck()){
         	  console.log("confirm $scope.deviceis  "+$scope.device);
+        	  
+        	  
         	  $scope.doRequest($("#hidRoot").val() + "service/devices/1/peroid/temp");
-        	  console.log($scope.getSearchParam());
+//        	  console.log($scope.getSearchParam());
         }
           
     }
 
     $scope.docheck = function() {
+    	//date picker
         if ($scope.searchTimeType.val === "0") {
             if ($scope.startDate === "" || $scope.endDate === "") {
                 $scope.errors = [];
@@ -313,7 +380,10 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
 
             }
         }
+        // period picker
         if ($scope.searchTimeType.val === "1") {
+//        	$scope.startDate = $scope.peroid.id;
+//        	$scope.endDate  = $scope.peroid.id;
             if ($scope.startDate === "" || $scope.endDate === "") {
                 $scope.errors = [];
                 $scope.errors.push("either startDate or endDate can not be null!");

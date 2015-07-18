@@ -4,7 +4,8 @@ import java.sql.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 
 @XmlRootElement
 public class QueryDeviceData {
@@ -19,6 +20,11 @@ public class QueryDeviceData {
 	
 	public String getStarttime() {
 		return starttime;
+	}
+	@Override
+	public String toString() {
+		return "QueryDeviceData [intervals=" + intervals + ", starttime="
+				+ starttime + ", endtime=" + endtime + "]";
 	}
 	public void setStarttime(String starttime) {
 		this.starttime = starttime;
