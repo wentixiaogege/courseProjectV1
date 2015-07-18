@@ -3,27 +3,24 @@ angular.module('admin').controller('SmartMeterLightCtrl', function($scope, $inte
 
     $scope.alerts = [];
     // which server interface will be called. call from localServer or DataServer.
-    $scope.serverModel = "localServer";
 
-    // $scope.doAjaxRequest = function(url, method, data){}
+    // get all devices
+    $scope.doRequest = function(url) {
 
-    $scope.doRequest = function(url, server) {
-        if (server === undefined)
-            server = $scope.serverModel;
-
-        $http({
-            method: 'GET',
-            // url: 'testdata2.json',
-            url:    ,//'../front/lightssearchaction?server=' + server,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-            // data: $.param($scope.getSearchParam())
-        }).success(function(data, status, headers, config) {
+    	/* $http({
+             method: 'GET',
+             // url: 'testdata2.json',
+             url: "../service/devices/",//'../front/lightssearchaction?server=' + server,
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+             // data: $.param($scope.getSearchParam())
+         })*/
+    	$http.get("../service/devices/").success(function(data, status, headers, config) {
             console.log(data);
             $scope.pri_smartmeters = data;
-            $scope.smartmeters = addDispalyOptions(data);
-            console.log($scope.smartmeters);
+            $scope.devices = addDispalyOptions(data);
+            console.log($scope.devices);
         }).
         error(function(data, status, headers, config) {
             console.log("errors");
@@ -39,94 +36,7 @@ angular.module('admin').controller('SmartMeterLightCtrl', function($scope, $inte
         });
     };
 
-    $scope.go = function(sm) {
-
-        console.log("go");
-        console.log(sm.coordinator_id);
-        console.log(sm.sm_id);
-        console.log(sm.sm_name);
-        // console.log($("#testsel").length);
-        // $("#testsel").bootstrapSwitch();
-    }
-
-    $scope.changeServer = function(mModel) {
-        console.log(mModel);
-        if ($scope.serverModel === mModel) {
-            return;
-        } else {
-            console.log("call back to server");
-            $scope.doRequest("", mModel);
-        }
-
-    }
-
-    $scope.change_temp = function(sm, light, min_temp, max_temp) {
-        // $window.alert("ok");
-        // dialogs.notify('Something Happened!','Something happened that I need to tell you.');
-
-
-
-        $scope.alerts = [];
-
-        if ($window.isNaN(min_temp) || $window.isNaN(max_temp)) {
-            $scope.alerts.push({
-                msg: "temprature must be a number",
-                "type": "danger"
-            });
-            return;
-        }
-
-        if (Number(min_temp) >= Number(max_temp)) {
-            $scope.alerts.push({
-                msg: "min temprature must be not bigger than max temprature",
-                "type": "danger"
-            });
-            return;
-        }
-
-        var dlg = dialogs.confirm("Change Temprature", "Do you want to change min and max temprature?");
-        dlg.result.then(function() {
-            $http({
-                method: 'POST',
-                url: '../front/tempraturecontrolaction/json',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    'server': $scope.serverModel,
-                    'operation': {
-                        "coordinator_id": sm.coordinator_id,
-                        "sm_id": sm.sm_id,
-                        "device_id": light.device_id,
-                        "max_value": max_temp,
-                        "min_value": min_temp
-                    }
-                }
-                // data: $.param($scope.getSearchParam())
-            }).success(function(data, status, headers, config) {
-                console.log(data);
-                // $scope.confirmed = 'You confirmed "Yes."';
-                light.min_value = min_temp;
-                light.max_value = max_temp;
-            }).
-            error(function(data, status, headers, config) {
-                console.log("errors");
-                console.log(status);
-                $scope.alerts = [];
-                $scope.alerts.push({
-                    msg: data.ERROR_CODE,
-                    "type": "danger"
-                });
-            });
-
-        }, function() {
-            console.log("not change");
-            // $scope.confirmed = 'You confirmed "No."';
-        });
-
-    }
-
-    $scope.change_light = function(sm, light, status) {
+    $scope.relay_device = function(device, status) {
         // var light_status = status.toString() === "1" ? '0' : '1';
         // light.status = light_status;
 
@@ -137,34 +47,21 @@ angular.module('admin').controller('SmartMeterLightCtrl', function($scope, $inte
         var msg = "do you want to " + (manipulation === "0" ? " shut down " : " open ") + "light?";
         var dlg = dialogs.confirm("Lights", msg);
         dlg.result.then(function() {
-            $http({
+        	/*({
                 method: 'POST',
-                url: '../front/lightmanipulationaction/json',
+                url: '../service/devices/'+device.id+'/'+manipulation,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: {
-                    // "coordinator_id": sm.coordinator_id,
-                    // "sm_id": sm.sm_id,
-                    // "load_id": light.load_id,
-                    // "load_config_id": light.load_config_id,
-                    // "manipulation": manipulation
-                    'server': $scope.serverModel,
-                    "manipulation": {
-                        "coordinator_id": sm.coordinator_id,
-                        "sm_id": sm.sm_id,
-                        "device_id": light.device_id,
-                        "manipulation": manipulation
-                    }
-                }
-                // data: $.param($scope.getSearchParam())
-            }).success(function(data, status, headers, config) {
+            })*/
+            $http.post('../service/devices/'+device.id+'/'+manipulation)
+            .success(function(data, status, headers, config) {
                 console.log(data);
-                light.device_status = manipulation;
+                device.device_status = manipulation;
                 // $scope.confirmed = 'You confirmed "Yes."';
-                light.light_class = light.device_status === "1" ? "btn-success" : "btn-default";
-                light.light_disp = light.device_status === "1" ? "ON" : "OFF";
-                light.light_pic_class = light.device_status === "1" ? "light_on" : "light_off";
+                device.device_class = device.device_status === "1" ? "btn-success" : "btn-default";
+                device.device_disp = device.device_status === "1" ? "ON" : "OFF";
+                device.device_pic_class = device.device_status === "1" ? "device_on" : "device_off";
             }).
             error(function(data, status, headers, config) {
                 console.log("errors");
@@ -186,8 +83,6 @@ angular.module('admin').controller('SmartMeterLightCtrl', function($scope, $inte
 
     }
 
-
-    // $scope.doRequest("", $scope.serverModel);
     var stop;
 
     $scope.stopTest = "Stop";
@@ -204,10 +99,9 @@ angular.module('admin').controller('SmartMeterLightCtrl', function($scope, $inte
 
     // var stopTime = $interval($scope.doRequest("", $scope.serverModel), 1000);
     $scope.startServer = function() {
-        $scope.doRequest("", $scope.serverModel);
+        $scope.doRequest("");
         stop = $interval(function() {
-            // console.log("ok");
-            $scope.doRequest("", $scope.serverModel);
+            $scope.doRequest("");
         }, 15000);
 		$scope.stopTest = "Stop";
     }
@@ -215,22 +109,27 @@ angular.module('admin').controller('SmartMeterLightCtrl', function($scope, $inte
     $scope.startServer();
 });
 
-function addDispalyOptions(meters) {
+function addDispalyOptions(getdevices) {
 
-    var smartmeters = [];
-    if (Object.prototype.toString.call(meters) === '[object Array]') {
-        smartmeters = meters;
+    var devices = [];
+    if (Object.prototype.toString.call(getdevices) === '[object Array]') {
+        devices = getdevices;
     } else {
-        smartmeters.push(meters);
+        devices.push(getdevices);
     }
 
 
-    var len = smartmeters.length;
+    var len = devices.length;
 
     for (var i = 0; i < len; i++) {
-        var smartmeter = smartmeters[i];
+        var device = devices[i];
+        
+        var device_status = device.status.toString();
+        device.device_class = device_status === "1" ? "btn-success" : "btn-default";
+        device.device_disp = device_status === "1" ? "ON" : "OFF";
+        device.device_pic_class = device_status === "1" ? "device_on" : "device_off";
         //that is a bug for tomcat. when lightDatas has only on item , tomcat will cast it to a Object.
-        if ("[object Object]" === Object.prototype.toString.call(smartmeter.lightDatas)) {
+      /*  if ("[object Object]" === Object.prototype.toString.call(smartmeter.lightDatas)) {
             var lightDatas = [];
             lightDatas.push(smartmeter.lightDatas);
             smartmeter.lightDatas = lightDatas;
@@ -242,9 +141,9 @@ function addDispalyOptions(meters) {
             var light_status = light.device_status.toString();
             light.light_class = light_status === "1" ? "btn-success" : "btn-default";
             light.light_disp = light_status === "1" ? "ON" : "OFF";
-            light.light_pic_class = light_status === "1" ? "light_on" : "light_off";
-        };
+            light.light_pic_class = light_status === "1" ? "device_on" : "device_off";
+        };*/
     };
 
-    return smartmeters;
+    return devices;
 }

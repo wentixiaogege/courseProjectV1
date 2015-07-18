@@ -21,17 +21,13 @@
         <div>
             <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
         </div>
-        <!--  
-        <div class="btn-group">
-            <label class="btn btn-success" ng-click="changeServer('localServer')" ng-model="serverModel" btn-radio="'localServer'" uncheckable>Local Server</label>
-            <label class="btn btn-success" ng-click="changeServer('dataServer')" ng-model="serverModel" btn-radio="'dataServer'" uncheckable>Data Server</label>
-            <button type="button" class="btn btn-primary" style="margin-left:100px" ng-click="stop_refresh()">
-                {{stopTest}}
-            </button>
-        </div>
-        -->
         <tabset>
-            <tab ng-repeat="smartMeter in smartmeters" select="go(smartMeter)" ng-model="smartMeter" heading="{{smartMeter.sm_name}}" active="smartMeter.active" disabled="smartMeter.disabled">
+            <tab ng-repeat="device in devices" ng-model="device" heading="{{device.name}}" active="device.active" disabled="device.disabled">
+               <div class="btn-group">
+	            <button type="button" class="btn btn-primary" style="margin-right:50px" ng-click="stop_refresh()">
+	                {{stopTest}}
+	            </button>
+	           </div>
                 <div class="row">
                     <div class="col-xs-2">Device Name</div>
                     <div class="col-xs-2">Temprature</div>
@@ -41,18 +37,18 @@
                     <div class="col-xs-2">Action</div>
                     <div class="col-xs-3">Edit</div>
                 </div>
-                <div class="row" ng-repeat="light in smartMeter.lightDatas" ng-model="light">
-                    <div class="col-xs-2 col-xs-height">{{light.device_name}}</div>
-                    <div class="col-xs-2 col-xs-height">{{light.temp_data * 1.8 + 32}}℉ [{{light.temp_data}}℃]</div>
-                    <div class="col-xs-1 col-xs-height"><span class="{{light.light_pic_class}}"></span></div>
-                    <div class="col-xs-1 col-xs-height">{{light.min_value}}</div>
-                    <div class="col-xs-1 col-xs-height">{{light.max_value}}</div>
+                <div class="row">
+                    <div class="col-xs-2 col-xs-height">{{device.name}}</div>
+                    <div class="col-xs-2 col-xs-height"><b>23.32</b></div>
+                     <div class="col-xs-1 col-xs-height"><span class="{{device.device_pic_class}}"></span></div>
+                    <div class="col-xs-1 col-xs-height"><b> −89.2 °C</b></div>
+                    <div class="col-xs-1 col-xs-height"><b>93.9 °C</b></div>
                     <div class="col-xs-2 col-xs-height">
-                        <button type="button" ng-click="change_light(smartMeter, light, light.device_status)" class="btn {{light.light_class}} btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        <button type="button" ng-click="relay_device(device, device.status)" class="btn {{device.device_class}} btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;</button>
                     </div>
                     <div class="col-xs-3 col-xs-height">
-                        <input type="text" class="form-control inline" ng-init='minTemp=light.min_value' ng-model='minTemp' value="{{light.min_value}}">-
-                        <input type="text" class="form-control inline" ng-model='maxTemp' ng-init='maxTemp=light.max_value' value="{{light.max_value}}">
+                        <input type="text" class="form-control inline" ng-init='minTemp=light.min_value' ng-model='minTemp' value="23.32">-
+                        <input type="text" class="form-control inline" ng-model='maxTemp' ng-init='maxTemp=light.max_value' value="23.32">
                         <button type="button" class="btn btn-default btn-sm" ng-click='change_temp(smartMeter, light, minTemp, maxTemp)'>Confirm</button>
                     </div>
                 </div>

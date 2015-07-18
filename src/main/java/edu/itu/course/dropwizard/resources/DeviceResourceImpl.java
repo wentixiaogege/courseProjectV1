@@ -60,7 +60,8 @@ public class DeviceResourceImpl implements DeviceResource {
 	@Override
 	public Response getDevices() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return Response.status(200).entity(this.deviceDAO.findDevices()).build();
 	}
 	public Device getDeviceById(int deviceId) {
 		// TODO Auto-generated method stub

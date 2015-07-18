@@ -1,5 +1,7 @@
 package edu.itu.course.dropwizard.jobs;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -38,7 +40,7 @@ public class MyXbeeJob extends Job {
 		Future<String> future = null;
 		final ExecutorService executor;
 		Callable<String> asyncTask;
-		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String futureResult = "reading error";
 		
 		DeviceResourceImpl deviceResourceImpl;// = (DeviceResourceImpl) SundialJobScheduler.getServletContext().getAttribute("MyKey");
@@ -62,19 +64,23 @@ public class MyXbeeJob extends Job {
 
 					// waiting for answer
 					String receivedString;
+					String[] receiveArray;
 					if ((receivedString = xbee.receiveXbeeData()) != null) {
 
 						if (receivedString.equals(XbeeEnum.ERROR_RESPONSE.getValue())) {
 							logger.error("error sendXbeeData(xbee,XbeeEnum.READING.getValue());");
+							
+							return "Failed:receive data is error";
 						}
 						logger.info("future ---> received Data is :" + receivedString);
 
-						if (receivedString.equals(XbeeEnum.READING_DONE.getValue())) {
-							logger.info("command reading data succuess!!");
-						}
-
 						//
-						DeviceData currentDeviceData = new DeviceData(1, Float.parseFloat(receivedString), new Date());
+						receiveArray = receivedString.split(",");
+						
+						//changed to device time and using device id and device name 
+						DeviceData currentDeviceData = new DeviceData(Integer.parseInt(receiveArray[0]), 
+													                  Float.parseFloat(receiveArray[2]),
+													                  dateFormat.parse(receiveArray[3]));
 						deviceResourceImpl.insertDeviceDataByDeviceId(currentDeviceData);
 
 						logger.info("future cron MyXbeeJob insert data is " + currentDeviceData);

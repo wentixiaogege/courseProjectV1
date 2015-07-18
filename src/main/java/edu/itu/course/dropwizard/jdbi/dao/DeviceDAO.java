@@ -22,6 +22,9 @@ public interface DeviceDAO {
 
     @SqlQuery("select * from " + DEVICE_TABLE + " where id = :id")
     Device findDeviceById(@Bind("id") int id);
+    
+    @SqlQuery("select * from " + DEVICE_TABLE)
+    Device findDevices();
 
     @SqlUpdate("delete from " + DEVICE_TABLE + " where id = :it")
     void removeDevice(@Bind int deviceId);

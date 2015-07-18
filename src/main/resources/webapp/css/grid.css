@@ -27,7 +27,7 @@ hr {
   margin-bottom: 40px;
 }
 
-.light_on {
+.device_on {
    box-shadow: 0 0 10px red;
    border-radius: 50px;
     display: block;
@@ -38,7 +38,7 @@ hr {
     background-color: red;
 }
 
-.light_off {
+.device_off {
    box-shadow: 0 0 10px black;
    border-radius: 50px;
     display: block;
