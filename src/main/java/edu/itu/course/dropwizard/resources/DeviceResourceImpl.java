@@ -228,7 +228,7 @@ public class DeviceResourceImpl implements DeviceResource {
 					xbeeUtil.sendXbeeData(relayState > 0 ? XbeeEnum.RELAY_ON
 							.getValue() : XbeeEnum.RELAY_OFF.getValue());
 					// waiting for response
-					String xbeeresponseString = xbeeUtil.receiveXbeeData();
+					String xbeeresponseString = xbeeUtil.receiveXbeeData(4000);
 
 					String result = (relayState > 0) ? xbeeresponseString
 							.equals(XbeeEnum.RELAY_ON_DONE.getValue()) ? "Success"
@@ -289,23 +289,32 @@ public class DeviceResourceImpl implements DeviceResource {
 
 					logger.debug("coming inside the relay");
 
-					// send command
-					String result = xbeeUtil
-							.sendXbeeData(relayState > 0 ? XbeeEnum.RELAY_ON
-									.getValue() : XbeeEnum.RELAY_OFF.getValue());
-					// waiting for response
-					// String xbeeresponseString = xbeeUtil.receiveXbeeData();
-
-					// String result = (relayState > 0) ?
-					// xbeeresponseString.equals(XbeeEnum.RELAY_ON_DONE.getValue())
-					// ? "Success" : "Failed" :
-					// xbeeresponseString.equals(XbeeEnum.RELAY_ON_DONE.getValue())
-					// ? "Success" : "Failed";
-
-					logger.debug("1111111111111111111relayState is %d xbee result is%s"
-							+ relayState + result);
+					try {
+						
+					
+						// send command
+						String result = xbeeUtil
+								.sendXbeeData(relayState > 0 ? XbeeEnum.RELAY_ON
+										.getValue() : XbeeEnum.RELAY_OFF.getValue());
+						// waiting for response
+						// String xbeeresponseString = xbeeUtil.receiveXbeeData();
+	
+						// String result = (relayState > 0) ?
+						// xbeeresponseString.equals(XbeeEnum.RELAY_ON_DONE.getValue())
+						// ? "Success" : "Failed" :
+						// xbeeresponseString.equals(XbeeEnum.RELAY_ON_DONE.getValue())
+						// ? "Success" : "Failed";
+	
+						logger.debug("1111111111111111111relayState is %d xbee result is%s"
+								+ relayState + result);
+						
+						deviceDAO.updateDeviceStatusbyId(deviceId, relayState);
 
 					return result;
+					} catch (Exception e) {
+						// TODO: handle exception
+						return e.getMessage();
+					}
 				}
 			};
 			future = executor.submit(asyncTask);

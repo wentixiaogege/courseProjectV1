@@ -17,7 +17,6 @@ import com.rapplogic.xbee.api.wpan.TxStatusResponse;
 import com.rapplogic.xbee.util.ByteUtils;
 
 import edu.itu.course.PropertyReading;
-import edu.itu.course.dropwizard.jobs.MyXbeeJob;
 
 public class XbeeUtil {
 
@@ -57,6 +56,28 @@ public class XbeeUtil {
 			throw new XBeeException();
 		}
 	}
+	public boolean reopen(){
+		try {
+			if (xbee != null && xbee.isConnected()) {
+				logger.info("xbee is shutting down now ---------");
+				xbee.close();
+				
+				logger.info("xbee is  opening---------");
+				xbee.open(propertyReading.getXbeeDevice(), Integer.parseInt(propertyReading.getXbeeBaud()));
+
+				return true;
+			}
+			logger.info("xbee opening---------");
+			xbee.open(propertyReading.getXbeeDevice(), Integer.parseInt(propertyReading.getXbeeBaud()));
+
+			xbee.clearResponseQueue();
+			return true;
+		} catch (NumberFormatException | XBeeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	public void close() {
 		if (xbee != null && xbee.isConnected()) {
@@ -64,36 +85,37 @@ public class XbeeUtil {
 		}
 	}
 
-	public String receiveXbeeData() throws XBeeException {
+	public String receiveXbeeData(int timeout) throws XBeeException {
 
 		try {
 			// forever waiting here testing version
 			// waiting most 10 seconds 
-			XBeeResponse response = xbee.getResponse();
+			
+			
+			XBeeResponse response = xbee.getResponse(timeout);
 
-			logger.debug("received response " + response.toString());
+			logger.info("received response " + response.toString());
 
 			if (response.getApiId() == ApiId.RX_16_RESPONSE) {
 				// we received a packet from ZNetSenderTest.java
 				RxResponse16 rx = (RxResponse16) response;
 
 				logger.debug("Received RX packet, options is" + rx.getOptions() + ", sender address is " + rx.getRemoteAddress() + ", data is " + ByteUtils.toString(rx.getData()));
-
+				
 				return ByteUtils.toString(rx.getData());
 			}
-			xbee.clearResponseQueue();
-		} catch (XBeeTimeoutException timeout) {
+			
+		} catch (XBeeTimeoutException t) {
 
-			logger.info("server timeout" + timeout.getMessage());
-			throw new XBeeTimeoutException();
+			logger.info("xbee receiver timeout" + t.getMessage());
+			return null;
 		} catch (XBeeException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			logger.error(e1.toString());
-			throw new XBeeException(e1);
+			return null;
 		}
 		return null;
-
 	}
 
 	public String sendXbeeData(String data) {
@@ -121,10 +143,12 @@ public class XbeeUtil {
 
 			if (response.isSuccess()) {
 				logger.info("response is " + response.getStatus());
+				xbee.clearResponseQueue();
 			} else {
 				logger.error(" error response is " + response.getStatus());
 			}
-			xbee.clearResponseQueue();
+			logger.info("in send Xbee data queue size is "+xbee.getResponseQueueSize());
+
 			return response.getStatus().toString();
 		} catch (XBeeTimeoutException e) {
 			logger.warn("request timed out");

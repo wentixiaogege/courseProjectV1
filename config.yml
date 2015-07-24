@@ -43,6 +43,8 @@ database:
   # whether or not idle connections should be validated
   checkConnectionWhileIdle: false
 
+  checkConnectionOnBorrow: true
+
  # the amount of time to sleep between runs of the idle connection validation, abandoned cleaner and idle pool resizing
   evictionInterval: 10s
 
@@ -98,7 +100,7 @@ logging:
   appenders:
     # Log INFO to stderr
     - type: console
-      threshold: DEBUG
+      threshold: INFO
       target: stderr
       logFormat: "%-5level [%thread][%logger{0}]: %message%n"
 

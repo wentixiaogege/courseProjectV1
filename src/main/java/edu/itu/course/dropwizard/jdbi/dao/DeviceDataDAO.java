@@ -19,7 +19,7 @@ public interface DeviceDataDAO {
 	 // NOTE: User is a reserved keyword in Derby
     public static final String DEVICE_DATA_TABLE = "device_data";
 
-    @SqlUpdate("create table " + DEVICE_DATA_TABLE + " (id int(11), device_id int(11), data float, timestamp TIMESTAMP)")
+    @SqlUpdate("create table " + DEVICE_DATA_TABLE + " (id int(11) NOT NULL AUTO_INCREMENT,device_id int(11), data float, timestamp TIMESTAMP,PRIMARY KEY (id))")
     void createDeviceDataTable();
 
     @SqlUpdate("insert into " + DEVICE_DATA_TABLE + " (id, device_id, data , timestamp) values (:id, :device_id, :data,:timestamp)")

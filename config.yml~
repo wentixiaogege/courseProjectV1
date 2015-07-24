@@ -41,7 +41,7 @@ database:
   maxSize: 32
 
   # whether or not idle connections should be validated
-  checkConnectionWhileIdle: false
+  checkConnectionWhileIdle: true
 
  # the amount of time to sleep between runs of the idle connection validation, abandoned cleaner and idle pool resizing
   evictionInterval: 10s
@@ -60,9 +60,11 @@ server:
 #  softNofileLimit: 1000
 #  hardNofileLimit: 1000
   rootPath: '/service/*'
+  applicationContextPath: /
   applicationConnectors:
     - type: http
       port: 8080
+  adminContextPath: /admin
   adminConnectors:
     - type: http
       port: 8081
@@ -96,7 +98,7 @@ logging:
   appenders:
     # Log INFO to stderr
     - type: console
-      threshold: DEBUG
+      threshold: INFO
       target: stderr
       logFormat: "%-5level [%thread][%logger{0}]: %message%n"
 

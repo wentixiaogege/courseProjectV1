@@ -13,22 +13,22 @@ ItuConfiguration = (function() {
 	return {
 		Devices:[{
 			id: "0",
-			mac: "[0, 12, 4b, 0, 4, 0f, 1a, 3c]"
+			name: "TMP006#00"
 		}, {
 			id: "1",
-			mac: "[0, 12, 4b, 0, 4, 0f, 1c, 77]"
+			name: "TMP006#01"
 		}, {
 			id: "2",
-			mac: "[0, 12, 4b, 0, 4, 0e, f1, 9e]"
+			name: "TMP006#02"
 		}, {
 			id: "3",
-			mac: "[0, 12, 4b, 0, 4, 13, 31, 8e]"
+			name: "TMP006#03"
 		}, {
 			id: "4",
-			mac: "[0, 12, 4b, 0, 4, 13, 32, 8a]"
+			name: "TMP006#04"
 		}, {
 			id: "5",
-			mac: "[0, 12, 4b, 0, 4, 0e, f3, 91]"
+			name: "TMP006#05"
 		}],
 		SmartMeters: [{
 			id: "0",

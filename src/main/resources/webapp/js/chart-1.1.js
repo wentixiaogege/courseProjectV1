@@ -1,6 +1,88 @@
-$.getScript("js/config.js", function() {
-    console.log("config.js loaded");
-})
+
+ItuConfiguration = (function() {
+	return {
+		Devices:[{
+			id: "0",
+			name: "TMP006#00"
+		}, {
+			id: "1",
+			name: "TMP006#01"
+		}, {
+			id: "2",
+			name: "TMP006#02"
+		}, {
+			id: "3",
+			name: "TMP006#03"
+		}, {
+			id: "4",
+			name: "TMP006#04"
+		}, {
+			id: "5",
+			name: "TMP006#05"
+		}],
+		SmartMeters: [{
+			id: "0",
+			mac: "[0, 12, 4b, 0, 4, 0f, 1a, 3c]"
+		}, {
+			id: "1",
+			mac: "[0, 12, 4b, 0, 4, 0f, 1c, 77]"
+		}, {
+			id: "2",
+			mac: "[0, 12, 4b, 0, 4, 0e, f1, 9e]"
+		}, {
+			id: "3",
+			mac: "[0, 12, 4b, 0, 4, 13, 31, 8e]"
+		}, {
+			id: "4",
+			mac: "[0, 12, 4b, 0, 4, 13, 32, 8a]"
+		}, {
+			id: "5",
+			mac: "[0, 12, 4b, 0, 4, 0e, f3, 91]"
+		}],
+		SearchPeriods: [{
+			id: "1h",
+			desp: "one hour"
+		}, {
+			id: "5h",
+			desp: "5 hours"
+		}, {
+			id: "1d",
+			desp: "one day"
+		}, {
+			id: "1w",
+			desp: "one week"
+		}, {
+			id: "1m",
+			desp: "one month"
+		}, {
+			id: "all",
+			desp: "all"
+		}],
+		Intervals: [{
+			id: "0",
+			desp: "no"
+		}, {
+			id: "120",
+			desp: "two minitues"
+		}, {
+			id: "600",
+			desp: "ten minitues"
+		}, {
+			id: "3600",
+			desp: "one hour"
+		}, {
+			id: "86400",
+			desp: "one day"
+		}],
+		Servers: [{
+			id: "0",
+			desp: "localServer"
+		}, {
+			id: "1",
+			desp: "dataServer"
+		}]
+	};
+}());
 
 function DispalyObj(name, min, max, colors, vAxisName, field) {
     this.name = name;
@@ -172,6 +254,8 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
 //            console.log("new Date test is "+ new_date);
             
             $scope.startDate = dateText +" 00:00:00";
+            console.log("$scope.startDate is "+$scope.startDate);
+
         }
     });
     $("#dateto").datepicker({
@@ -186,6 +270,8 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
             console.log(dateText);
             // $scope.searchParam.endDate = dateText;
             $scope.endDate = dateText+" 00:00:00";
+            
+        	console.log("$scope.endDate   is"+$scope.endDate)
         }
     });
 
@@ -207,7 +293,7 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
     $scope.constructDevice = function(data) {
         $scope.devices = [];
         
-        var device = new Device($scope.device.id, "Jack Test Device Name", "TEMP");
+        var device = new Device($scope.device.id, $scope.device.name, "TEMP");
         
         var deviceProperty = new DeviceProperty("TEMP", data);
         
@@ -316,7 +402,8 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
         	
         	var startDate = new Date();
      		var endDate = new Date();
-     		
+     		startDate.setHours(startDate.getHours() - startDate.getTimezoneOffset() / 60);
+     		endDate.setHours(endDate.getHours() - endDate.getTimezoneOffset() / 60);
         	var interval;
         	switch (chosen_period) {
     		case "0":
@@ -355,16 +442,18 @@ app.controller('ChartController', ['$scope', '$http', '$interval', function($sco
         	$scope.endDate  =  JSON.stringify(endDate).replace('T'," ").replace(/\"|\.\d{3}./g,"");//.toJSON();
         	$scope.startDate = JSON.stringify(startDate).replace('T'," ").replace(/\"|\.\d{3}./g,"");//.replace('"',"").replace('"',"");//.toJSON();
         	
-        	console.log("$scope.startDate is "+$scope.startDate);
-        	console.log("$scope.endDate   is"+$scope.endDate)
+        	
         	
         }
         
         if ($scope.docheck()){
         	  console.log("confirm $scope.deviceis  "+$scope.device);
         	  
-        	  
-        	  $scope.doRequest($("#hidRoot").val() + "service/devices/1/peroid/temp");
+        	  console.log("$scope.startDate is "+$scope.startDate);
+          	  console.log("$scope.endDate   is"+$scope.endDate)
+          	  
+          	  
+        	  $scope.doRequest($("#hidRoot").val() + "service/devices/"+$scope.device.id+"/peroid/temp");
 //        	  console.log($scope.getSearchParam());
         }
           

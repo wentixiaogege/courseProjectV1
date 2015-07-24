@@ -124,10 +124,10 @@ function addDispalyOptions(getdevices) {
     for (var i = 0; i < len; i++) {
         var device = devices[i];
         
-        var device_status = device.status.toString();
-        device.device_class = device_status === "1" ? "btn-success" : "btn-default";
-        device.device_disp = device_status === "1" ? "ON" : "OFF";
-        device.device_pic_class = device_status === "1" ? "device_on" : "device_off";
+        device.device_status = device.status.toString();
+        device.device_class = device.device_status === "1" ? "btn-success" : "btn-default";
+        device.device_disp = device.device_status === "1" ? "ON" : "OFF";
+        device.device_pic_class = device.device_status === "1" ? "device_on" : "device_off";
         //that is a bug for tomcat. when lightDatas has only on item , tomcat will cast it to a Object.
       /*  if ("[object Object]" === Object.prototype.toString.call(smartmeter.lightDatas)) {
             var lightDatas = [];

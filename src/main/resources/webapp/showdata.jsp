@@ -64,7 +64,7 @@
         		
         		<th class="text-nowrap vcenter">Device</th>
                 <td colspan="2">
-                    <select class="form-control" id="selDevice" ng-model="device" ng-change="updateDevice(device)" ng-options="option as option.mac for option in  Devices"></select>
+                    <select class="form-control" id="selDevice" ng-model="device" ng-change="updateDevice(device)" ng-options="option as option.name for option in  Devices"></select>
                 </td>
         	</tr>
         	<tr>

@@ -14,7 +14,7 @@ public interface DeviceDAO {
 	 // NOTE: User is a reserved keyword in Derby
     public static final String DEVICE_TABLE = "device";
 
-    @SqlUpdate("create table " + DEVICE_TABLE + " (id int(11), name varchar(100), status int(11), dataType varchar(100))")
+    @SqlUpdate("create table " + DEVICE_TABLE + " (id int(11) NOT NULL AUTO_INCREMENT, name varchar(100), status int(11), dataType varchar(100),PRIMARY KEY (id))")
     void createDeviceTable();
 
     @SqlUpdate("insert into " + DEVICE_TABLE + " (id, name, status,dataType) values (:id, :name, :status, :dataType)")
@@ -30,6 +30,10 @@ public interface DeviceDAO {
     void removeDevice(@Bind int deviceId);
 
     //consider later maybe
-    @SqlUpdate("update " + DEVICE_TABLE + "set name = :name  where id = :it ")
+    @SqlUpdate("update " + DEVICE_TABLE + " set name = :name  where id = :deviceId ")
 	Device updateDevicebyId(int deviceId);
+    
+    //consider later maybe
+    @SqlUpdate("update " + DEVICE_TABLE + " set status = :status  where id = :deviceId ")
+	void updateDeviceStatusbyId(@Bind("deviceId")int deviceId,@Bind("status")int status);
 }
