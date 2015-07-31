@@ -205,14 +205,14 @@ you are set!!!!!!
 API designs:
 
 
-list all devices		v1/devices/	GET		{devices:[{id:1, name:tmp006, status:0},{id:2, name:tmp007, status:0},....]}
-get a device			v1/devices/{id}	GET		{id:1, name:tmp006, status:0}
-update a device			v1/devices/{id}	POST	{id:1, name:tmp006, status:0}	{result:true}
-add a device			v1/devices/	PUT	{id:2, name:tmp007, status:1}	{result:true}
-remove a device			v1/devices/{id}	DELETE		{result:true}
-list period data of the device	v1/devices/{id}/period/temp	GET	{intervals:3600,starttime:2015-7-2 12:12:12,endtime:2015-7-4 :12:12:12}	[{"id":112,"deviceId":1,"data":16,"timestamp":1436836733000},...,{"id":4402,"deviceId":1,"data":20.957447,"timestamp":1436903871000}]
-list all  data of device	v1/devices/{id}/all/temp	GET		[{"id":112,"deviceId":1,"data":16,"timestamp":1436836733000},...,{"id":4402,"deviceId":1,"data":20.957447,"timestamp":1436903871000}]
-relay a device	v1/relay/{id}/{relayState}	POST		{result:true}
+	list all devices		v1/devices/	GET		{devices:[{id:1, name:tmp006, status:0},{id:2, name:tmp007, status:0},....]}
+	get a device			v1/devices/{id}	GET		{id:1, name:tmp006, status:0}
+	update a device			v1/devices/{id}	POST	{id:1, name:tmp006, status:0}	{result:true}
+	add a device			v1/devices/	PUT	{id:2, name:tmp007, status:1}	{result:true}
+	remove a device			v1/devices/{id}	DELETE		{result:true}
+	list period data of the device	v1/devices/{id}/period/temp	GET	{intervals:3600,starttime:2015-7-2 12:12:12,endtime:2015-7-4 :12:12:12}	[{"id":112,"deviceId":1,"data":16,"timestamp":1436836733000},...,{"id":4402,"deviceId":1,"data":20.957447,"timestamp":1436903871000}]
+	list all  data of device	v1/devices/{id}/all/temp	GET		[{"id":112,"deviceId":1,"data":16,"timestamp":1436836733000},...,{"id":4402,"deviceId":1,"data":20.957447,"timestamp":1436903871000}]
+	relay a device	v1/relay/{id}/{relayState}	POST		{result:true}
 
 
 Usage
