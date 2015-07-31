@@ -30,10 +30,6 @@ How to set up or change the system:
 
 How does the system work together:
 
- before this you need to create a new mysql database in your server.with the right database name and your database password in the XXXX.yml 
- configure files specified.
- 
-
 
 
 
