@@ -177,7 +177,8 @@ After the hardware part is done! You need to install some libraries and configur
 4.set up the server part 
    	Be sure you have download maven2 .if you haven't run below command in the  command line:
                 sudo apt-get install maven2
-	Be sure you have download 
+                
+   Be sure you have download 
         CourseProject : https://github.com/wentixiaogege/CourseProject   ;
 		CourseProjectV1: https://github.com/wentixiaogege/CourseProjectV1;
 	    import those projects into your eclipse you will see all the avaibleable code,make sure there is no error show up.
@@ -191,10 +192,16 @@ After the hardware part is done! You need to install some libraries and configur
    cd to the CourseProjectV1 folder and then run below :
 		mvn clean install 
    everything should went well and then you will get a XXXX.jar package like below:
+   
+   
 ![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/eclipse_server_compiled.png)   
 
- 	copy and paste both config.yml and this XXXX.jar package into your raspberry OS system anywhere you want and run the below command:
-		sudo java -Djava.library.path=/usr/lib/jni/ -jar yourpackagename.jar server config.yml
+copy and paste both config.yml and this XXXX.jar package into your raspberry OS system anywhere you want and run the below command:
+
+
+sudo java -Djava.library.path=/usr/lib/jni/ -jar yourpackagename.jar server config.yml
+
+
 
 you are set!!!!!!
 
