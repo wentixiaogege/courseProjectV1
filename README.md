@@ -146,12 +146,12 @@ Software:
 
 After the hardware part is done! You need to install some libraries and configure to make the system runing.
 
-0. install DHT-11 driver :(optional in server part)
-	download code from here:   https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/tree/master/Adafruit_DHT_Driver 
+1.install DHT-11 driver :(optional in server part)
+	download code from here:   https://github.com/adafruit/Adafruit-Raspberry-Pi- Python-Code/tree/master/Adafruit_DHT_Driver 
 	cd into this folder and then using the command  : make 
 	you will get a runnable file Adafruit_DHT;put it into you PATH environment.
  
-1. install jdk8
+2.install jdk8
 	download  form here http://www.oracle.com/technetwork/java/javase/downloads/jdk8-arm-downloads-2187472.html
 	unzip it into somewhere I installed it in /opt/java 
 	cd /opt/java/yourjdkversion/
@@ -169,12 +169,12 @@ After the hardware part is done! You need to install some libraries and configur
 
   Now you should be able to execute java
 
-2. install java serial tools
+3.install java serial tools
  	You can install RXTX like this:
 		$ sudo apt-get install librxtx-java
 
 
-3.set up the server part 
+4.set up the server part 
    	Be sure you have download maven2 .if you haven't run below command in the  command line:
                 sudo apt-get install maven2
 	Be sure you have download 
