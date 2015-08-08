@@ -39,7 +39,8 @@ setting up the system
 ------------------------
 Then I am going to talk about how to make the system work , be sure you have downloaded all the code  !! and import them in the eclipse projects , by the way I am using eclipse for setting up this system not in the raspberry but in my local PC .If you really want to programming in the raspberry pi ,you can do it ,but I am sure it is very slow .you can use my projects also ,cause you still can use maven in the raspberry pi. I am going to lead you guys from both hardware and software side.
 
- Hardware:
+Hardware:
+===============
 
 1. the raspberry OS:
 	The first is you need to install and configure the system in the raspberry pi ,which using as SD card as its memeory and storage ,I am 		not going to talk about how to install the r aspberry OS here you can find more tutorials here: https://www.raspberrypi.org
@@ -141,8 +142,9 @@ after you plugin the xbee device into your system use command below:
 
  
 Software:
+===============
 
-    	After the hardware part is done! You need to install some libraries and configure to make the system runing.
+After the hardware part is done! You need to install some libraries and configure to make the system runing.
 
 0. install DHT-11 driver :(optional in server part)
 	download code from here:   https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/tree/master/Adafruit_DHT_Driver 
@@ -157,11 +159,15 @@ Software:
 	sudo update-alternatives --set java /opt/java/yourjdkversion/bin/java
 
 open /etc/profile add those lines in the bottom:
-			export JAVA_HOME=/opt/ yourjdkversion
-			export JRE_HOME=$JAVA_HOME/jre 
-			export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib 
-			export PATH=$JAVA_HOME/bin:$PATH 
-	Now you should be able to execute java
+
+
+export JAVA_HOME=/opt/ yourjdkversion
+export JRE_HOME=$JAVA_HOME/jre 
+export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib 
+export PATH=$JAVA_HOME/bin:$PATH 
+
+
+Now you should be able to execute java
 
 2. install java serial tools
  	You can install RXTX like this:
