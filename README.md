@@ -158,16 +158,16 @@ After the hardware part is done! You need to install some libraries and configur
 	sudo update-alternatives --install "/usr/bin/java" "java" "/opt/java/yourjdkversion/java" 1
 	sudo update-alternatives --set java /opt/java/yourjdkversion/bin/java
 
-open /etc/profile add those lines in the bottom:
+   open /etc/profile add those lines in the bottom:
 
 
-export JAVA_HOME=/opt/ yourjdkversion
-export JRE_HOME=$JAVA_HOME/jre 
-export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib 
-export PATH=$JAVA_HOME/bin:$PATH 
+   export JAVA_HOME=/opt/ yourjdkversion
+   export JRE_HOME=$JAVA_HOME/jre 
+   export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib 
+   export PATH=$JAVA_HOME/bin:$PATH 
 
 
-Now you should be able to execute java
+  Now you should be able to execute java
 
 2. install java serial tools
  	You can install RXTX like this:
@@ -175,22 +175,22 @@ Now you should be able to execute java
 
 
 3.set up the server part 
-   	Be sure you have download maven2 .if you haven't run below command in the command line:
+   	Be sure you have download maven2 .if you haven't run below command in the  command line:
                 sudo apt-get install maven2
 	Be sure you have download 
-                CourseProject : https://github.com/wentixiaogege/CourseProject   ;
+        CourseProject : https://github.com/wentixiaogege/CourseProject   ;
 		CourseProjectV1: https://github.com/wentixiaogege/CourseProjectV1;
-	import those projects into your eclipse you will see all the avaibleable code,make sure there is no error show up.
+	    import those projects into your eclipse you will see all the avaibleable code,make sure there is no error show up.
 
 ![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/eclipse_server_init.png)      
 
 
 
-cd to the CourseProject folder and then run below:
+   cd to the CourseProject folder and then run below:
 		mvn clean install 
-cd to the CourseProjectV1 folder and then run below :
+   cd to the CourseProjectV1 folder and then run below :
 		mvn clean install 
-everything should went well and then you will get a XXXX.jar package like below:
+   everything should went well and then you will get a XXXX.jar package like below:
 ![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/eclipse_server_compiled.png)   
 
  	copy and paste both config.yml and this XXXX.jar package into your raspberry OS system anywhere you want and run the below command:
@@ -204,7 +204,7 @@ you are set!!!!!!
 
 
 API designs:
-
+============
 
 	list all devices		v1/devices/	GET		{devices:[{id:1, name:tmp006, status:0},{id:2, name:tmp007, status:0},....]}
 	get a device			v1/devices/{id}	GET		{id:1, name:tmp006, status:0}
