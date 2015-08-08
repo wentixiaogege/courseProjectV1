@@ -27,11 +27,22 @@ import edu.itu.course.dropwizard.api.beans.DeviceData;
 import edu.itu.course.dropwizard.api.beans.XbeeUtil;
 import edu.itu.course.dropwizard.resources.DeviceResourceImpl;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MyXbeeJob.
+ */
 @CronTrigger(cron = "0/10 * * * * ?")
 public class MyXbeeJob extends Job {
 
+	/** The logger. */
 	private final Logger logger = LoggerFactory.getLogger(MyXbeeJob.class);
 
+	/* (non Javadoc) 
+	* <p>Title: doRun</p> 
+	* <p>Description: </p> 
+	* @throws JobInterruptException 
+	* @see com.xeiam.sundial.Job#doRun() 
+	*/ 
 	@Override
 	public void doRun() throws JobInterruptException {
 		XbeeUtil xbee = XbeeUtil.getInstance();

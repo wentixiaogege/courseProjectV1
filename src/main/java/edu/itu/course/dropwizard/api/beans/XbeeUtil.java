@@ -18,20 +18,38 @@ import com.rapplogic.xbee.util.ByteUtils;
 
 import edu.itu.course.PropertyReading;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class XbeeUtil.
+ */
 public class XbeeUtil {
 
+	/** The logger. */
 	private final Logger logger = LoggerFactory.getLogger(XbeeUtil.class);
+	
+	/** The xbee. */
 	XBee xbee;
+	
+	/** The property reading. */
 	PropertyReading propertyReading;
 
+	/** The instance. */
 	private static XbeeUtil instance = null;
 
+	/**
+	 * Instantiates a new xbee util.
+	 */
 	protected XbeeUtil() {
 		// Exists only to defeat instantiation.
 		xbee = new XBee();
 		propertyReading = new PropertyReading();
 	}
 
+	/**
+	 * Gets the single instance of XbeeUtil.
+	 *
+	 * @return single instance of XbeeUtil
+	 */
 	public static XbeeUtil getInstance() {
 		if (instance == null) {
 			instance = new XbeeUtil();
@@ -39,6 +57,12 @@ public class XbeeUtil {
 		return instance;
 	}
 
+	/**
+	 * Open.
+	 *
+	 * @return true, if successful
+	 * @throws XBeeException the x bee exception
+	 */
 	public boolean open() throws XBeeException {
 		try {
 			if (xbee != null && xbee.isConnected()) {
@@ -56,6 +80,12 @@ public class XbeeUtil {
 			throw new XBeeException();
 		}
 	}
+	
+	/**
+	 * Reopen.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean reopen(){
 		try {
 			if (xbee != null && xbee.isConnected()) {
@@ -79,12 +109,22 @@ public class XbeeUtil {
 		return false;
 	}
 
+	/**
+	 * Close.
+	 */
 	public void close() {
 		if (xbee != null && xbee.isConnected()) {
 			xbee.close();
 		}
 	}
 
+	/**
+	 * Receive xbee data.
+	 *
+	 * @param timeout the timeout
+	 * @return the string
+	 * @throws XBeeException the x bee exception
+	 */
 	public String receiveXbeeData(int timeout) throws XBeeException {
 
 		try {
@@ -118,6 +158,12 @@ public class XbeeUtil {
 		return null;
 	}
 
+	/**
+	 * Send xbee data.
+	 *
+	 * @param data the data
+	 * @return the string
+	 */
 	public String sendXbeeData(String data) {
 		// should add into the properties file
 		PropertyReading propertyReading = new PropertyReading();

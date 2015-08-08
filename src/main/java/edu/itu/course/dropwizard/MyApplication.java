@@ -41,26 +41,46 @@ import edu.itu.course.dropwizard.resources.DeviceResourceImpl;
 import edu.itu.course.dropwizard.resources.ManagedPeriodicTask;
 import edu.itu.course.dropwizard.resources.TestTask;
 
+// TODO: Auto-generated Javadoc
 /**
  * User: Jack Li
- * Date: 7/7/15
+ * Date: 7/7/15.
  */
 public class MyApplication extends Application<MyApplicationConfiguration> {
 	
 //  private static Logger logger = Logger.getLogger(MyApplication.class.getName());
 
-	private static Logger logger = LoggerFactory.getLogger(MyApplication.class);
+	/** The logger. */
+private static Logger logger = LoggerFactory.getLogger(MyApplication.class);
 	
+		/**
+		 * The main method.
+		 *
+		 * @param args the arguments
+		 * @throws Exception the exception
+		 */
 		public static void main(String[] args) throws Exception {
         new MyApplication().run(args);
     }
 
+    /* (non Javadoc) 
+    * <p>Title: getName</p> 
+    * <p>Description: </p> 
+    * @return 
+    * @see io.dropwizard.Application#getName() 
+    */ 
     @Override
     public String getName() {
         return "My Application";
     }
 
 
+    /* (non Javadoc) 
+    * <p>Title: initialize</p> 
+    * <p>Description: </p> 
+    * @param bootstrap 
+    * @see io.dropwizard.Application#initialize(io.dropwizard.setup.Bootstrap) 
+    */ 
     @Override
     public void initialize(Bootstrap<MyApplicationConfiguration> bootstrap) {
     	
@@ -77,6 +97,14 @@ public class MyApplication extends Application<MyApplicationConfiguration> {
     	    });
     }
 
+    /* (non Javadoc) 
+    * <p>Title: run</p> 
+    * <p>Description: </p> 
+    * @param configuration
+    * @param environment
+    * @throws ClassNotFoundException 
+    * @see io.dropwizard.Application#run(io.dropwizard.Configuration, io.dropwizard.setup.Environment) 
+    */ 
     public void run(MyApplicationConfiguration configuration,
                     Environment environment) throws ClassNotFoundException {
 

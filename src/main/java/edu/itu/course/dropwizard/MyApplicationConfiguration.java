@@ -25,27 +25,40 @@ import io.dropwizard.db.DataSourceFactory;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+// TODO: Auto-generated Javadoc
 /**
  * User: Jack Li
- * Date: 7/7/15
+ * Date: 7/7/15.
  */
 public class MyApplicationConfiguration extends Configuration{
 
+    /** The database. */
     @Valid
     @NotNull
     @JsonProperty
     private DataSourceFactory database = new DataSourceFactory();
 
+    /**
+     * Gets the data source factory.
+     *
+     * @return the data source factory
+     */
     public DataSourceFactory getDataSourceFactory() {
         return database;
     }
 
 	
+  /** The sundial configuration. */
   // Sundial
   @Valid
   @NotNull
   public SundialConfiguration sundialConfiguration = new SundialConfiguration();
 
+  /**
+   * Gets the sundial configuration.
+   *
+   * @return the sundial configuration
+   */
   @JsonProperty("sundial")
   public SundialConfiguration getSundialConfiguration() {
 

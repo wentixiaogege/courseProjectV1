@@ -38,46 +38,100 @@ import edu.itu.course.dropwizard.api.beans.XbeeUtil;
 import edu.itu.course.dropwizard.jdbi.dao.DeviceDAO;
 import edu.itu.course.dropwizard.jdbi.dao.DeviceDataDAO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DeviceResourceImpl.
+ */
 public class DeviceResourceImpl implements DeviceResource {
 
+	/** The device dao. */
 	private final DeviceDAO deviceDAO;
+	
+	/** The device data dao. */
 	private final DeviceDataDAO deviceDataDAO;
 
+	/** The logger. */
 	private static Logger logger = LoggerFactory
 			.getLogger(DeviceResourceImpl.class);
 
+	/**
+	 * Instantiates a new device resource impl.
+	 *
+	 * @param deviceDAO the device dao
+	 * @param deviceDataDAO the device data dao
+	 */
 	public DeviceResourceImpl(DeviceDAO deviceDAO, DeviceDataDAO deviceDataDAO) {
 		super();
 		this.deviceDAO = deviceDAO;
 		this.deviceDataDAO = deviceDataDAO;
 	}
 
+	/* (non Javadoc) 
+	* <p>Title: addDevice</p> 
+	* <p>Description: </p> 
+	* @param device 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#addDevice(edu.itu.course.dropwizard.api.beans.Device) 
+	*/ 
 	public void addDevice(Device device) {
 		// TODO Auto-generated method stub
 		this.deviceDAO.insert(device);
 	}
 	
+	/* (non Javadoc) 
+	* <p>Title: getDevices</p> 
+	* <p>Description: </p> 
+	* @return 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#getDevices() 
+	*/ 
 	@Override
 	public Response getDevices() {
 		// TODO Auto-generated method stub
 		
 		return Response.status(200).entity(this.deviceDAO.findDevices()).build();
 	}
+	
+	/* (non Javadoc) 
+	* <p>Title: getDeviceById</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @return 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#getDeviceById(int) 
+	*/ 
 	public Device getDeviceById(int deviceId) {
 		// TODO Auto-generated method stub
 		return this.deviceDAO.findDeviceById(deviceId);
 	}
 
+	/* (non Javadoc) 
+	* <p>Title: updateDeviceById</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @return 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#updateDeviceById(int) 
+	*/ 
 	public Device updateDeviceById(int deviceId) {
 		// TODO Auto-generated method stub
 		return this.deviceDAO.updateDevicebyId(deviceId);
 	}
 
+	/* (non Javadoc) 
+	* <p>Title: removeDevice</p> 
+	* <p>Description: </p> 
+	* @param deviceId 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#removeDevice(int) 
+	*/ 
 	public void removeDevice(int deviceId) {
 		// TODO Auto-generated method stub
 		this.deviceDAO.removeDevice(deviceId);
 	}
 
+	/* (non Javadoc) 
+	* <p>Title: getDeviceDataById</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @return 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#getDeviceDataById(int) 
+	*/ 
 	public Response getDeviceDataById(int deviceId) {
 		// TODO Auto-generated method stub
 
@@ -86,6 +140,12 @@ public class DeviceResourceImpl implements DeviceResource {
 		return Response.status(200).entity(list).build();
 	}
 
+	/**
+	 * Gets the date from string.
+	 *
+	 * @param dateString the date string
+	 * @return the date from string
+	 */
 	private Date getDateFromString(String dateString) {
 		
 		
@@ -105,6 +165,13 @@ public class DeviceResourceImpl implements DeviceResource {
 		}
 	}
 
+	/**
+	 * Gets the avg.
+	 *
+	 * @param list the list
+	 * @param intervals the intervals
+	 * @return the avg
+	 */
 	private List<DeviceData> getAvg(List<DeviceData> list, int intervals) {
 
 		List<DeviceData> newdevicedatalist = new ArrayList<DeviceData>();
@@ -154,6 +221,14 @@ public class DeviceResourceImpl implements DeviceResource {
 
 	}
 
+	/* (non Javadoc) 
+	* <p>Title: getDevicePeroidDataById</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param t
+	* @return 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#getDevicePeroidDataById(int, edu.itu.course.dropwizard.api.beans.QueryDeviceData) 
+	*/ 
 	@Override
 	public Response getDevicePeroidDataById(int deviceId, QueryDeviceData t) {
 		// TODO Auto-generated method stub
@@ -185,6 +260,16 @@ public class DeviceResourceImpl implements DeviceResource {
 		return Response.status(200).entity(getAvg(list, intervals)).build();
 	}
 
+	/* (non Javadoc) 
+	* <p>Title: queryDevicePeroidDataById</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param starttime
+	* @param endtime
+	* @param intervals
+	* @return 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#queryDevicePeroidDataById(int, java.lang.String, java.lang.String, java.lang.String) 
+	*/ 
 	@Override
 	public Response queryDevicePeroidDataById(int deviceId, String starttime,
 			String endtime, String intervals) {
@@ -200,6 +285,14 @@ public class DeviceResourceImpl implements DeviceResource {
 
 	}
 
+	/* (non Javadoc) 
+	* <p>Title: relayDeviceById</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param t
+	* @return 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#relayDeviceById(int, org.codehaus.jettison.json.JSONObject) 
+	*/ 
 	@Override
 	public String relayDeviceById(int deviceId, JSONObject t) {
 		// TODO Auto-generated method stub
@@ -266,6 +359,14 @@ public class DeviceResourceImpl implements DeviceResource {
 		return null;
 	}
 
+	/* (non Javadoc) 
+	* <p>Title: relayDeviceByParamAndId</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param relayState
+	* @return 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#relayDeviceByParamAndId(int, int) 
+	*/ 
 	@Override
 	public String relayDeviceByParamAndId(int deviceId, int relayState) {
 		XbeeUtil xbeeUtil;
@@ -347,11 +448,24 @@ public class DeviceResourceImpl implements DeviceResource {
 		return null;
 	}
 
+	/**
+	 * Insert device data by device id.
+	 *
+	 * @param deviceData the device data
+	 */
 	public void insertDeviceDataByDeviceId(DeviceData deviceData) {
 
 		this.deviceDataDAO.insertDeviceDataById(deviceData);
 	}
 
+	/* (non Javadoc) 
+	* <p>Title: postDevicePeroidDataById</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param t
+	* @return 
+	* @see edu.itu.course.dropwizard.api.DeviceResource#postDevicePeroidDataById(int, edu.itu.course.dropwizard.api.beans.QueryDeviceData) 
+	*/ 
 	@Override
 	public Response postDevicePeroidDataById(int deviceId, QueryDeviceData t) {
 		logger.info("test string is ---"+t.toString());

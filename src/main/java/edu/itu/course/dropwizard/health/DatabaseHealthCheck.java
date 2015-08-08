@@ -20,19 +20,37 @@ import com.codahale.metrics.health.HealthCheck;
 import io.dropwizard.db.DataSourceFactory;
 import org.skife.jdbi.v2.DBI;
 
+// TODO: Auto-generated Javadoc
 /**
  * User: Eran Withana
- * Date: 7/7/14
+ * Date: 7/7/14.
  */
 public class DatabaseHealthCheck extends HealthCheck {
+    
+    /** The database. */
     private final DBI database;
+    
+    /** The data source factory. */
     private final DataSourceFactory dataSourceFactory;
 
+    /**
+     * Instantiates a new database health check.
+     *
+     * @param database the database
+     * @param dataSourceFactory the data source factory
+     */
     public DatabaseHealthCheck(DBI database, DataSourceFactory dataSourceFactory) {
         this.database = database;
         this.dataSourceFactory = dataSourceFactory;
     }
 
+    /* (non Javadoc) 
+    * <p>Title: check</p> 
+    * <p>Description: </p> 
+    * @return
+    * @throws Exception 
+    * @see com.codahale.metrics.health.HealthCheck#check() 
+    */ 
     @Override
     protected Result check() throws Exception {
         if (database.open().getConnection() != null) {
