@@ -41,13 +41,13 @@ Then I am going to talk about how to make the system work , be sure you have dow
 
  Hardware:
 
-	1. the raspberry OS:
+1. the raspberry OS:
 	The first is you need to install and configure the system in the raspberry pi ,which using as SD card as its memeory and storage ,I am 		not going to talk about how to install the r aspberry OS here you can find more tutorials here: https://www.raspberrypi.org
-	2.The connection of the DHT11 temp sensor and the device 
+2.The connection of the DHT11 temp sensor and the device 
 	2.1 connect temp sensor
 	you need three wires to get data from the DHT11 sensor, which is power/ground/data .below is my connection:
                               
-     ![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/temp_connection.png)                                                          
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/temp_connection.png)                                                          
 
 
 
@@ -61,7 +61,7 @@ Then I am going to talk about how to make the system work , be sure you have dow
 
 
 
-	I mainly get the inspiration from this website: http://hirt.se/blog/?p=493
+I mainly get the inspiration from this website: http://hirt.se/blog/?p=493
 
 
 
@@ -71,10 +71,10 @@ Then I am going to talk about how to make the system work , be sure you have dow
 
 
 
-	2.2 connect the relay device
+   2.2 connect the relay device
        relay something is just like relay a led device ,you only need to wires to relay a device which is state and ground: connection like below:
              
-	    ![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/relay_connection.png)   
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/relay_connection.png)   
 
 
 
@@ -89,19 +89,16 @@ Then I am going to talk about how to make the system work , be sure you have dow
 
 
   
-
-	3.the xbee connection :
+3.the xbee connection :
   	 for the xbee connection you may need using XCTU for confire the xbee :
 		http://www.libelium.com/development/waspmote/	documentation/x-ctu-tutorial/
    	 for how to configure the xbee different mode learn form here:
  		http://www.arduino-hacks.com/xbee-api-mode/
 	  	below is my configure: 
 	  	
-      1. for end device:
+3.1. for end device:
 
-      ![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/xbee_end.png)   
-
-
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/xbee_end.png)   
 
 
 
@@ -115,10 +112,12 @@ Then I am going to talk about how to make the system work , be sure you have dow
 
 
 
-		2. for server device:
+
+
+3.2. for server device:
 	   
 
-     ![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/xbee_server.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/xbee_server.png)
 
 
 
@@ -135,7 +134,7 @@ Then I am going to talk about how to make the system work , be sure you have dow
 
 
 
-	after you plugin the xbee device into your system use command below:
+after you plugin the xbee device into your system use command below:
              ls /dev/tty
 	you will get a device named 
           “ttyUSB*” * means numbers:
@@ -145,34 +144,31 @@ Software:
 
     	After the hardware part is done! You need to install some libraries and configure to make the system runing.
 
-	0. install DHT-11 driver :(optional in server part)
+0. install DHT-11 driver :(optional in server part)
 	download code from here:   https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/tree/master/Adafruit_DHT_Driver 
 	cd into this folder and then using the command  : make 
 	you will get a runnable file Adafruit_DHT;put it into you PATH environment.
  
-	1. install jdk8
+1. install jdk8
 	download  form here http://www.oracle.com/technetwork/java/javase/downloads/jdk8-arm-downloads-2187472.html
 	unzip it into somewhere I installed it in /opt/java 
 	cd /opt/java/yourjdkversion/
 	sudo update-alternatives --install "/usr/bin/java" "java" "/opt/java/yourjdkversion/java" 1
 	sudo update-alternatives --set java /opt/java/yourjdkversion/bin/java
 
-	open /etc/profile add those lines in the bottom:
+open /etc/profile add those lines in the bottom:
 			export JAVA_HOME=/opt/ yourjdkversion
-
 			export JRE_HOME=$JAVA_HOME/jre 
-
 			export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib 
-
 			export PATH=$JAVA_HOME/bin:$PATH 
 	Now you should be able to execute java
 
-	2. install java serial tools
+2. install java serial tools
  	You can install RXTX like this:
 		$ sudo apt-get install librxtx-java
 
 
-	3.set up the server part 
+3.set up the server part 
    	Be sure you have download maven2 .if you haven't run below command in the command line:
                 sudo apt-get install maven2
 	Be sure you have download 
@@ -180,18 +176,16 @@ Software:
 		CourseProjectV1: https://github.com/wentixiaogege/CourseProjectV1;
 	import those projects into your eclipse you will see all the avaibleable code,make sure there is no error show up.
 
-    ![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/eclipse_server_init.png)      
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/eclipse_server_init.png)      
 
 
 
-
-
-	cd to the CourseProject folder and then run below:
+cd to the CourseProject folder and then run below:
 		mvn clean install 
-	cd to the CourseProjectV1 folder and then run below :
+cd to the CourseProjectV1 folder and then run below :
 		mvn clean install 
-	everything should went well and then you will get a XXXX.jar package like below:
-	![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/eclipse_server_compiled.png)   
+everything should went well and then you will get a XXXX.jar package like below:
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/eclipse_server_compiled.png)   
 
  	copy and paste both config.yml and this XXXX.jar package into your raspberry OS system anywhere you want and run the below command:
 		sudo java -Djava.library.path=/usr/lib/jni/ -jar yourpackagename.jar server config.yml
