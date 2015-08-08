@@ -1,0 +1,10 @@
+edu.itu.course.CourseProjectV1
+edu.itu.course.dropwizard
+edu.itu.course.dropwizard.api
+edu.itu.course.dropwizard.api.beans
+edu.itu.course.dropwizard.client
+edu.itu.course.dropwizard.health
+edu.itu.course.dropwizard.jdbi.dao
+edu.itu.course.dropwizard.jdbi.mappers
+edu.itu.course.dropwizard.jobs
+edu.itu.course.dropwizard.resources
