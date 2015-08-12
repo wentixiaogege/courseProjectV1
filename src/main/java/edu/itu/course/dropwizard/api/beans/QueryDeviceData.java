@@ -1,7 +1,5 @@
 package edu.itu.course.dropwizard.api.beans;
 
-import java.sql.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonProperty;

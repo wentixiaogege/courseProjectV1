@@ -1,7 +1,5 @@
 package edu.itu.course.dropwizard.api;
 
-import java.util.Date;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -14,11 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.codehaus.jettison.json.JSONObject;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import edu.itu.course.dropwizard.api.beans.Device;
 import edu.itu.course.dropwizard.api.beans.QueryDeviceData;
 

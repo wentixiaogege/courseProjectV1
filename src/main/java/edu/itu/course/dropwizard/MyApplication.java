@@ -22,7 +22,6 @@ import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
-import io.dropwizard.lifecycle.Managed;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -38,8 +37,6 @@ import edu.itu.course.dropwizard.health.DatabaseHealthCheck;
 import edu.itu.course.dropwizard.jdbi.dao.DeviceDAO;
 import edu.itu.course.dropwizard.jdbi.dao.DeviceDataDAO;
 import edu.itu.course.dropwizard.resources.DeviceResourceImpl;
-import edu.itu.course.dropwizard.resources.ManagedPeriodicTask;
-import edu.itu.course.dropwizard.resources.TestTask;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -150,7 +147,7 @@ private static Logger logger = LoggerFactory.getLogger(MyApplication.class);
      
         
         
-        
+        //add shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                   System.out.println("shutdown Hook called");
@@ -159,13 +156,6 @@ private static Logger logger = LoggerFactory.getLogger(MyApplication.class);
             	  executor.shutdown();
             }
           });
-        
-//        environment.admin().addTask(new TestTask("Testtask",new DeviceResourceImpl(dao,dataDAO)));
-        
-//        environment.lifecycle().
-/*        final Managed managedImplementer = new ManagedPeriodicTask(new TestTask(new DeviceResourceImpl(dao,dataDAO)));
-        environment.lifecycle().manage(managedImplementer);*/
-       
 
     }
 

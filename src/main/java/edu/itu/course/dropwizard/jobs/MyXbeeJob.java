@@ -2,15 +2,6 @@ package edu.itu.course.dropwizard.jobs;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import org.eclipse.jetty.util.TypeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +10,6 @@ import com.rapplogic.xbee.api.XBeeTimeoutException;
 import com.xeiam.sundial.Job;
 import com.xeiam.sundial.SundialJobScheduler;
 import com.xeiam.sundial.annotations.CronTrigger;
-import com.xeiam.sundial.annotations.SimpleTrigger;
 import com.xeiam.sundial.exceptions.JobInterruptException;
 
 import edu.itu.course.XbeeEnum;

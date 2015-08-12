@@ -1,6 +1,5 @@
 package edu.itu.course.dropwizard.jdbi.dao;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

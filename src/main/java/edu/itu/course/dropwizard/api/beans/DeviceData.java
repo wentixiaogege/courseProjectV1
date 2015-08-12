@@ -1,6 +1,5 @@
 package edu.itu.course.dropwizard.api.beans;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;

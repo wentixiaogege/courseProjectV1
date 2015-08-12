@@ -1,6 +1,5 @@
 package edu.itu.course.dropwizard.api.beans;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;

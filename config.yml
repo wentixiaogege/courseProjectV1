@@ -95,7 +95,7 @@ server:
 logging:
 
   # Permit DEBUG, INFO, WARN and ERROR messages to be logged by appenders.
-  level: DEBUG
+  level: INFO
 
   appenders:
     # Log INFO to stderr
