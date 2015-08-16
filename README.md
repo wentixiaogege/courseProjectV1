@@ -256,3 +256,238 @@ curl -i -X DELETE -H "Content-Type: application/json"  http://localhost:8080/dev
 //relay the device
 curl -i -X POST -H "Content-Type: application/json" http://localhost:8080/devices/1/1
 
+
+Usage of the System:
+---------------------
+
+next, I will tell in detail about how to change or modify functions in  the end device part.
+For how to modify or change function in the server part goto :
+	https://github.com/wentixiaogege/CourseProjectEndDevice
+ 
+mainly for the server part you should know that we are using a website framework dropwizard for better understanding click here:
+	http://www.dropwizard.io/
+basically we have the file structure below:
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/filestructure.png)
+
+ you will get a better understanding of the structure from here 		:http://www.dropwizard.io/getting-started.html
+next what I am talking based on that you know basic things about dropwizard.and you have made my system running well. If you are experienced ,don't care about what I said above.
+
+2.0 configure the database and logging system
+      for now we already know that every dropwizard app has a configuration file XXXX.yaml/yml ,you can see mine as a referrence :(yourprojectfolder/config.yml):
+		      
+		sundial:
+		  thread-pool-size: 5
+		  shutdown-on-unload: true
+		  wait-on-shutdown: false
+		  start-delay-seconds: 0
+		  start-scheduler-on-load: true
+		  global-lock-on-load: false
+		  annotated-jobs-package-name: edu.itu.course.dropwizard.jobs
+		
+		# Database settings.
+		database:
+		
+		  # the name of your JDBC driver
+		  driverClass: com.mysql.jdbc.Driver
+		
+		  # the username
+		  user: root
+		
+		  # the password
+		  password: 355itu11
+		
+		  # the JDBC URL
+		  url: jdbc:mysql://localhost:3306/courseProjectv1
+		
+		  # any properties specific to your JDBC driver:
+		  properties:
+		    charSet: UTF-8
+		    hibernate.dialect: org.hibernate.dialect.MySQL5Dialect    
+		
+		  # the maximum amount of time to wait on an empty pool before throwing an exception
+		  maxWaitForConnection: 1s
+		
+		  # the SQL query to run when validating a connection's liveness
+		  validationQuery: "/* MyApplication Health Check */ SELECT 1"
+		
+		  # the minimum number of connections to keep open
+		  minSize: 8
+		
+		  # the maximum number of connections to keep open
+		  maxSize: 32
+		
+		  # whether or not idle connections should be validated
+		  checkConnectionWhileIdle: false
+		
+		  checkConnectionOnBorrow: true
+		
+		 # the amount of time to sleep between runs of the idle connection validation, abandoned cleaner and idle pool resizing
+		  evictionInterval: 10s
+		
+		 # the minimum amount of time an connection must sit idle in the pool before it is eligible for eviction
+		  minIdleTime: 1 minute
+		
+		# use the simple server factory if you only want to run on a single port
+		#server:
+		#  type: simple
+		#  connector:
+		#    type: http
+		#    port: 8080
+		
+		server:
+		#  softNofileLimit: 1000
+		#  hardNofileLimit: 1000
+		  rootPath: '/service/*'
+		  applicationContextPath: /
+		  applicationConnectors:
+		    - type: http
+		      port: 8080
+		  adminContextPath: /admin
+		  adminConnectors:
+		    - type: http
+		      port: 8081
+		#  Uncomment the following if you want https support
+		#    - type: https
+		#      port: 8443
+		#      keyStorePath: example.keystore
+		#      keyStorePassword: example
+		#      validateCerts: false
+		
+		# this requires the npn-boot library on the JVM's boot classpath
+		#    - type: spdy3
+		#      port: 8445
+		#      keyStorePath: example.keystore
+		#      keyStorePassword: example
+		#      validateCerts: false
+		  
+		
+		# Uncomment the following if you want to enable https support for admin work
+		#    - type: https
+		#      port: 8444
+		#      keyStorePath: example.keystore
+		#      keyStorePassword: example
+		#      validateCerts: false
+		
+		logging:
+		
+		  # Permit DEBUG, INFO, WARN and ERROR messages to be logged by appenders.
+		  level: INFO
+		
+		  appenders:
+		    # Log INFO to stderr
+		    - type: console
+		      threshold: INFO
+		      target: stderr
+		      logFormat: "%-5level [%thread][%logger{0}]: %message%n"
+		
+		    # Log info, warnings and errors to our apps' main log.
+		    # Rolled over daily and retained for 5 days.
+		    - type: file
+		      threshold: INFO
+		      currentLogFilename: ./logs/example.log
+		      archivedLogFilenamePattern: ./logs/myapp-%d.log.gz
+		      archivedFileCount: 5
+		
+		    # Log debug messages, info, warnings and errors to our apps' debug log.
+		    # Rolled over hourly and retained for 6 hours
+		    - type: file
+		      threshold: DEBUG
+		      currentLogFilename: ./logs/debug.log
+		      archivedLogFilenamePattern: ./logs/debug-%d{yyyy-MM-dd-hh}.log.gz
+		      archivedFileCount: 6
+		      
+if there is something wrong here :you better go to the official website :
+	http://www.dropwizard.io/manual/configuration.html 
+for help, I have got many help there.
+
+2.1 change the frequency of getting the data
+  I am using jobs for getting the temperature data from end device. 
+Location is :
+ 	 yourprojectfolder/src/main/java/edu.itu.course.dropwizard.jobs.MyXbeeJob.java
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/myxbeejob.png)
+
+I am using crontrigger for control the frequency . The format of this trigger is below:
+Cron expressions are comprised of 6 required fields and one optional field separated by white space. The fields respectively are described as follows:
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/crontrigger.png)
+
+For better understanding check here:
+	http://quartz-scheduler.org/api/2.2.0/org/quartz/CronExpression.html
+	
+2.2 getting humidity data other than temperature
+if you have changed you end device code into getting temperature data, cause in our device table:
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/device_table.png)
+
+we can use either temperature or humidity. You may be need to add a new device here for getting the humidity data. Remember change the dataType into 'Humidity'; below scripts will help you :
+
+ insert into device (id, name, status,dataType) values (2, 'gethumiditydevice', 0, 'Humidity');
+
+notes: remember change your end device part device data into 2 also .
+Go to your-end-device-project-folder/src/main/resources/xbee.properties :
+
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/changexbeeproperty.png)
+
+
+change from 1 to 2. There are maybe still something you need to do for how to display the humidity data in to browser .
+Remember here:
+	you need to change the TEMP into  HUMIDITY for sure:
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/changefront.png)
+
+2.3 adding new APIs:
+all our api file located in :
+   yourprojectfolder/src/main/java/edu.itu.course.dropwizard.api;
+   
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/apis.png)
+
+or you can goto yourprojectfolder/src/main/resources/Documentation for API used.xlsx
+
+you can check here for how a representation class working :
+http://www.dropwizard.io/getting-started.html#creating-a-representation-class
+
+
+here is a working flow of the API:
+
+1.add the API in the representation class
+2.implement the function in the 
+    edu.itu.course.dropwizard.resources.DeviceResourceImpl
+3.testing 
+
+you can check in the DeviceResourceImpl class for learning how to implement the functions.
+
+
+2.4 modify html/jsp pages :
+
+on man! You can keep watching the tutorial to here, It means you must have a better understanding how this system works without knowing how the front page shows.
+
+Here is the basic idea for the front end:
+   I am using jquery + angularJS +google visulization.
+If you are experienced in the front pages , you are all finished ! I believe you will know how to change the front page base your experience.
+If you are not experienced in the front pages, you better learn some htmls+jquery+angularJS tutorials for basic understanding. I am not going to talk about the working mechanism of the front pages, cause there are so many things to talk
+Next I will talk about basically how my front pages works:
+ all the front page locates:
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/webpages.png)
+
+ and configure the folder into the application:
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/configurewebpages.png)
+
+for now the dropwizard will know all your web pages 
+
+and the chart-1.1.js is mainly for communicating between server and the pages.
+Working flow:
+     1.in the showdata.jsp click confirm:
+     2. in the  chart-1.1.js catch the click go to the confirm function
+     3. inside the confirm function:
+      	3.1 check the data and other things before submit to server
+	    3.2 do the request for getting the data or relay the device
+	    3.3 get the data and then draw the chart .
+
+For showing the data I am using goolge visualization,learn how to use it from here:
+ https://developers.google.com/chart/interactive/docs/reference
+
+This is the basic working flow:
+![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/basicwebpagesworking.png)
+
+
+All right ! So till now you should have a basic working flow for how the front page works here.I am not plan to tell the query + angularJS+google visualization in deep in this tutorial.
+
+Thanks 
+any questiongs:mail wentixiaogege@gmail.com 	 

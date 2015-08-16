@@ -128,6 +128,7 @@ private static Logger logger = LoggerFactory.getLogger(MyApplication.class);
             }
 
         }
+        
         final ExecutorService executorService = environment.lifecycle().executorService("executorService").minThreads(4).maxThreads(10).build();
         
         environment.getApplicationContext().setAttribute("ExecutorService", executorService);

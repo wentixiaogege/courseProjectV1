@@ -21,7 +21,8 @@ import edu.itu.course.dropwizard.resources.DeviceResourceImpl;
 /**
  * The Class MyXbeeJob.
  */
-@CronTrigger(cron = "0/10 * * * * ?")
+//for 5 seconds
+@CronTrigger(cron = "0/5 * * * * ?")
 public class MyXbeeJob extends Job {
 
 	/** The logger. */
@@ -36,81 +37,7 @@ public class MyXbeeJob extends Job {
 	@Override
 	public void doRun() throws JobInterruptException {
 		XbeeUtil xbee = XbeeUtil.getInstance();
-		/*
-		 * //using future to test XbeeUtil xbeeUtil; Future<String> future =
-		 * null; final ExecutorService executor; Callable<String> asyncTask;
-		 * DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		 * String futureResult = "reading error";
-		 * 
-		 * DeviceResourceImpl deviceResourceImpl;// = (DeviceResourceImpl)
-		 * SundialJobScheduler.getServletContext().getAttribute("MyKey");
-		 * 
-		 * // using future to control the led try { xbeeUtil =
-		 * XbeeUtil.getInstance(); executor = (ExecutorService)
-		 * SundialJobScheduler
-		 * .getServletContext().getAttribute("ExecutorService");
-		 * deviceResourceImpl = (DeviceResourceImpl)
-		 * SundialJobScheduler.getServletContext().getAttribute("MyKey");
-		 * 
-		 * xbeeUtil.open();
-		 * 
-		 * asyncTask = new Callable<String>() {
-		 * 
-		 * @Override public String call() throws Exception {
-		 * 
-		 * 
-		 * logger.debug("future coming inside the reading"); // sending command
-		 * reading temp data xbee.sendXbeeData(XbeeEnum.READING.getValue());
-		 * 
-		 * // waiting for answer String receivedString; String[] receiveArray;
-		 * if ((receivedString = xbee.receiveXbeeData()) != null) {
-		 * 
-		 * if (receivedString.equals(XbeeEnum.ERROR_RESPONSE.getValue())) {
-		 * logger
-		 * .error("error sendXbeeData(xbee,XbeeEnum.READING.getValue());");
-		 * 
-		 * return "Failed:receive data is error"; }
-		 * logger.info("future ---> received Data is :" + receivedString);
-		 * 
-		 * // receiveArray = receivedString.split(",");
-		 * 
-		 * //changed to device time and using device id and device name
-		 * DeviceData currentDeviceData = new
-		 * DeviceData(Integer.parseInt(receiveArray[0]),
-		 * Float.parseFloat(receiveArray[2]),
-		 * dateFormat.parse(receiveArray[3]));
-		 * deviceResourceImpl.insertDeviceDataByDeviceId(currentDeviceData);
-		 * 
-		 * logger.info("future cron MyXbeeJob insert data is " +
-		 * currentDeviceData);
-		 * 
-		 * }else { logger.info("can't receive reading data from Xbee \n" +
-		 * "  Please check connection between server Xbee and ending Xbee!!");
-		 * return "Failed"; }
-		 * 
-		 * return "Success";
-		 * 
-		 * } }; future = executor.submit(asyncTask);
-		 * 
-		 * //can using timeout parameters //waiting for 5 seconds futureResult =
-		 * future.get(4000, TimeUnit.SECONDS);
-		 * 
-		 * logger.info("future reading xbee result is%s" + futureResult); //
-		 * executor.notify(); //if the future fails will catch here } catch
-		 * (InterruptedException | ExecutionException e) { // TODO
-		 * Auto-generated catch block // e.printStackTrace();
-		 * logger.info("future reading  xbee result is%s" +
-		 * futureResult+"\n error message is --"+e.getMessage());
-		 * future.cancel(true); } catch (TimeoutException e) { // TODO
-		 * Auto-generated catch block
-		 * logger.info("future reading timeout result is %s" +
-		 * futureResult+"\n error message is --"+e.getMessage());
-		 * e.printStackTrace(); } catch (XBeeException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace();
-		 * logger.info("XBeeException here"+ e.getMessage()); }
-		 */
 
-		// using normal function works but conflict with future task ....
 		try {
 			// will check xbee is open or not
 			xbee.open();
