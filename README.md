@@ -267,7 +267,7 @@ For how to modify or change function in the server part goto :
 mainly for the server part you should know that we are using a website framework dropwizard for better understanding click here:
 	http://www.dropwizard.io/
 basically we have the file structure below:
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/filestructure.png)
+![alt tag](https://github.com/wentixiaogege/courseProjectV1/blob/master/readme_img/filestructure.png)
 
  you will get a better understanding of the structure from here 		:http://www.dropwizard.io/getting-started.html
 next what I am talking based on that you know basic things about dropwizard.and you have made my system running well. If you are experienced ,don't care about what I said above.
@@ -404,18 +404,18 @@ for help, I have got many help there.
   I am using jobs for getting the temperature data from end device. 
 Location is :
  	 yourprojectfolder/src/main/java/edu.itu.course.dropwizard.jobs.MyXbeeJob.java
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/myxbeejob.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectV1/blob/master/readme_img/myxbeejob.png)
 
 I am using crontrigger for control the frequency . The format of this trigger is below:
 Cron expressions are comprised of 6 required fields and one optional field separated by white space. The fields respectively are described as follows:
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/crontrigger.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectV1/blob/master/readme_img/crontrigger.png)
 
 For better understanding check here:
 	http://quartz-scheduler.org/api/2.2.0/org/quartz/CronExpression.html
 	
 2.2 getting humidity data other than temperature
 if you have changed you end device code into getting temperature data, cause in our device table:
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/device_table.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectV1/blob/master/readme_img/device_table.png)
 
 we can use either temperature or humidity. You may be need to add a new device here for getting the humidity data. Remember change the dataType into 'Humidity'; below scripts will help you :
 
@@ -424,19 +424,19 @@ we can use either temperature or humidity. You may be need to add a new device h
 notes: remember change your end device part device data into 2 also .
 Go to your-end-device-project-folder/src/main/resources/xbee.properties :
 
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/changexbeeproperty.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectV1/blob/master/readme_img/changexbeeproperty.png)
 
 
 change from 1 to 2. There are maybe still something you need to do for how to display the humidity data in to browser .
 Remember here:
 	you need to change the TEMP into  HUMIDITY for sure:
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/changefront.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectV1/blob/master/readme_img/changefront.png)
 
 2.3 adding new APIs:
 all our api file located in :
    yourprojectfolder/src/main/java/edu.itu.course.dropwizard.api;
    
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/apis.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectV1/blob/master/readme_img/apis.png)
 
 or you can goto yourprojectfolder/src/main/resources/Documentation for API used.xlsx
 
@@ -464,10 +464,10 @@ If you are experienced in the front pages , you are all finished ! I believe you
 If you are not experienced in the front pages, you better learn some htmls+jquery+angularJS tutorials for basic understanding. I am not going to talk about the working mechanism of the front pages, cause there are so many things to talk
 Next I will talk about basically how my front pages works:
  all the front page locates:
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/webpages.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectV1/blob/master/readme_img/webpages.png)
 
  and configure the folder into the application:
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/configurewebpages.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectV1/blob/master/readme_img/configurewebpages.png)
 
 for now the dropwizard will know all your web pages 
 
@@ -484,7 +484,7 @@ For showing the data I am using goolge visualization,learn how to use it from he
  https://developers.google.com/chart/interactive/docs/reference
 
 This is the basic working flow:
-![alt tag](https://github.com/wentixiaogege/CourseProjectEndDevice/blob/master/readme_img/basicwebpagesworking.png)
+![alt tag](https://github.com/wentixiaogege/CourseProjectV1/blob/master/readme_img/basicwebpagesworking.png)
 
 
 All right ! So till now you should have a basic working flow for how the front page works here.I am not plan to tell the query + angularJS+google visualization in deep in this tutorial.
