@@ -489,5 +489,7 @@ This is the basic working flow:
 
 All right ! So till now you should have a basic working flow for how the front page works here.I am not plan to tell the query + angularJS+google visualization in deep in this tutorial.
 
-Thanks 
-any questiongs:mail wentixiaogege@gmail.com 	 
+Thanks !
+-----------------------------------------
+any questions:mail wentixiaogege@gmail.com 
+	 
