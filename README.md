@@ -231,7 +231,7 @@ To start the server,
 - create the distributable by running "mvn clean install"
 - move to target folder and run "java -jar CourseProjectV1-0.0.1-SNAPSHOT.jar server ../config.yml"
 
-The server will start at port 8080. You can use UserResourceClient to interact with it. You can also get into admin interface by going to http://localhost:8081
+The server will start at http://localsever:8080. You can also get into admin interface by going to http://localhost:8081/admin/.
 
 //add device
 curl -i -X PUT -H "Content-Type: application/json" -d '{"id":11,"name":"test Device","status":0,"dataType":"lightding"}' http://localhost:8080/devices
@@ -251,17 +251,17 @@ curl -i -X GET -H "Content-Type: application/json" -d '{"glossary":{"intervals":
 
 //delete device
 
-curl -i -X DELETE -H "Content-Type: application/json"  http://localhost:8080/devices/11
+curl -i -X DELETE -H "Content-Type: application/json"  http://localhost:8080/service/devices/11
 
 //relay the device
-curl -i -X POST -H "Content-Type: application/json" http://localhost:8080/devices/1/1
+curl -i -X POST -H "Content-Type: application/json" http://localhost:8080/service/devices/1/1
 
 
 Usage of the System:
 ---------------------
 
-next, I will tell in detail about how to change or modify functions in  the end device part.
-For how to modify or change function in the server part goto :
+next, I will tell in detail about how to change or modify functions in  the server part.
+For how to modify or change function in the end device part goto :
 	https://github.com/wentixiaogege/CourseProjectEndDevice
  
 mainly for the server part you should know that we are using a website framework dropwizard for better understanding click here:
