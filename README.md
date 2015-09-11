@@ -91,8 +91,8 @@ I mainly get the inspiration from this website: http://hirt.se/blog/?p=493
 
   
 3.the xbee connection :
-  	 for the xbee connection you may need using XCTU for confire the xbee :
-		http://www.libelium.com/development/waspmote/	documentation/x-ctu-tutorial/
+  	 for the xbee connection you may need using XCTU for configure the xbee :
+		http://www.libelium.com/development/waspmote/documentation/x-ctu-tutorial/
    	 for how to configure the xbee different mode learn form here:
  		http://www.arduino-hacks.com/xbee-api-mode/
 	  	below is my configure: 
