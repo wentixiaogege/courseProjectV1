@@ -1,5 +1,8 @@
 package edu.itu.course.dropwizard.jdbi.dao;
 
+
+import java.util.List;
+
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
@@ -48,8 +51,8 @@ public interface DeviceDAO {
      *
      * @return the device
      */
-    @SqlQuery("select * from " + DEVICE_TABLE)
-    Device findDevices();
+    @SqlQuery("select * from " + DEVICE_TABLE )
+    List<Device> findDevices();
 
     /**
      * Removes the device.
