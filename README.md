@@ -459,7 +459,7 @@ you can check in the DeviceResourceImpl class for learning how to implement the 
 on man! You can keep watching the tutorial to here, It means you must have a better understanding how this system works without knowing how the front page shows.
 
 Here is the basic idea for the front end:
-   I am using jquery + angularJS +google visulization.
+   I am using jquery + angularJS +google visualization.
 If you are experienced in the front pages , you are all finished ! I believe you will know how to change the front page base your experience.
 If you are not experienced in the front pages, you better learn some htmls+jquery+angularJS tutorials for basic understanding. I am not going to talk about the working mechanism of the front pages, cause there are so many things to talk
 Next I will talk about basically how my front pages works:
