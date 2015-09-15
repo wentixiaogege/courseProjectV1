@@ -309,11 +309,12 @@ public class DeviceResourceImpl implements DeviceResource {
 				@Override
 				public String call() throws Exception {
 
-					System.out.println("running here");
+					System.out.println("running here"+XbeeEnum.RELAY_ON
+							.getValue()+deviceId);
 
 					// send command
 					xbeeUtil.sendXbeeData(relayState > 0 ? XbeeEnum.RELAY_ON
-							.getValue() : XbeeEnum.RELAY_OFF.getValue());
+							.getValue()+deviceId : XbeeEnum.RELAY_OFF.getValue()+deviceId);
 					// waiting for response
 					String xbeeresponseString = xbeeUtil.receiveXbeeData(4000);
 
@@ -386,11 +387,11 @@ public class DeviceResourceImpl implements DeviceResource {
 
 					try {
 						
-					
+
 						// send command
-						String result = xbeeUtil
-								.sendXbeeData(relayState > 0 ? XbeeEnum.RELAY_ON
-										.getValue() : XbeeEnum.RELAY_OFF.getValue());
+						String result = xbeeUtil.sendXbeeData(relayState > 0 ? XbeeEnum.RELAY_ON
+								.getValue()+deviceId : XbeeEnum.RELAY_OFF.getValue()+deviceId);
+						
 						// waiting for response
 						// String xbeeresponseString = xbeeUtil.receiveXbeeData();
 	
